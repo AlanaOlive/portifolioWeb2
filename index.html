@@ -1,3 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Administração</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Link para o CSS -->
+    <script src="js/script.js" defer></script> <!-- Link para o JavaScript -->
+</head>
+
+<body>
+    <header>
+        <div class="header-title">Softwarehouse</div>
+        <div class="menu">
+            <button class="menu-button" onclick="toggleDropdown()">Menu &#9662;</button>
+            <div class="dropdown" id="dropdown-menu" onmouseleave="closeDropdown()">
+                <a href="#" onclick="showSection('register-student')">Cadastro de Alunos</a>
+                <a href="#" onclick="showSection('list-students')">Listar Alunos</a>
+                <a href="#" onclick="showSection('knowledge')">Conhecimentos</a>
+                <a href="#" onclick="showSection('register-keyword')">Cadastro de Palavras-chave</a>
+                <a href="#" onclick="showSection('list-keywords')">Listar Palavras-chave</a>
+                <a href="#" onclick="alert('Saindo...')">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Seções do sistema -->
+        <div id="register-student" class="section hidden">
+            <div class="card">
+                <h2>Cadastro de Alunos</h2>
+                <div class="form-group">
+                    <label for="student-name">Nome do Aluno:</label>
+                    <input type="text" id="student-name" placeholder="Digite o nome do aluno">
+                </div>
+                <div class="form-group">
+                    <label for="student-email">Email:</label>
+                    <input type="email" id="student-email" placeholder="Digite o email do aluno">
+                </div>
+                <button onclick="alert('Aluno cadastrado!')">Salvar</button>
+            </div>
+        </div>
+
+        <div id="list-students" class="section hidden">
+            <div class="card">
+                <h2>Lista de Alunos</h2>
+                <table id="student-table">
+                    <thead>
+                        <tr>
+                            <th>Nome do Aluno</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>João Silva</td>
+                            <td>
+                                <button onclick="editStudent('Aluno 1')">Editar</button>
+                                <button onclick="deleteStudent('Aluno 1')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Maria Oliveira</td>
+                            <td>
+                                <button onclick="editStudent('Aluno 2')">Editar</button>
+                                <button onclick="deleteStudent('Aluno 2')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Carlos Souza</td>
+                            <td>
+                                <button onclick="editStudent('Aluno 3')">Editar</button>
+                                <button onclick="deleteStudent('Aluno 3')">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="register-keyword" class="section hidden">
+            <div class="card">
+                <h2>Cadastro de Palavras-chave</h2>
+                <div class="form-group">
+                    <label for="keyword">Palavra-chave:</label>
+                    <input type="text" id="keyword" placeholder="Digite a palavra-chave">
+                </div>
+                <button onclick="alert('Palavra-chave cadastrada!')">Salvar</button>
+            </div>
+        </div>
+
+        <div id="list-keywords" class="section hidden">
+            <div class="card">
+                <h2>Lista de Palavras-chave</h2>
+                <table id="keyword-table">
+                    <thead>
+                        <tr>
+                            <th>Palavra-chave</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Software</td>
+                            <td>
+                                <button onclick="editKeyword('Software')">Editar</button>
+                                <button onclick="deleteKeyword('Software')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inovação</td>
+                            <td>
+                                <button onclick="editKeyword('Inovação')">Editar</button>
+                                <button onclick="deleteKeyword('Inovação')">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tecnologia</td>
+                            <td>
+                                <button onclick="editKeyword('Tecnologia')">Editar</button>
+                                <button onclick="deleteKeyword('Tecnologia')">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="knowledge" class="section hidden">
+            <div class="card">
+                <h2>Conhecimentos</h2>
+                <table id="knowledge-table">
+                    <thead>
+                        <tr>
+                            <th>Conhecimento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Conhecimento 1</td>
+                        </tr>
+                        <tr>
+                            <td>Conhecimento 2</td>
+                        </tr>
+                        <tr>
+                            <td>Conhecimento 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="welcome" class="section">
+            <div class="card">
+                <h2>Bem-vindo ao Sistema</h2>
+                <p>Escolha uma opção no menu acima para começar.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>
