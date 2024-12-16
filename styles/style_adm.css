@@ -1,0 +1,275 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+header {
+    background-color: #212529;
+    color: white;
+    padding: 23.5px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .menu {
+    position: relative;
+}
+
+header .menu-button {
+    background: #3e4953;
+    /* Cor de fundo do botão */
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    /* Bordas arredondadas */
+}
+
+header .dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: none;
+    flex-direction: column;
+    min-width: 200px;
+    z-index: 1000;
+}
+
+header .dropdown a {
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #343a40;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+header .dropdown a:hover {
+    background-color: #a6cfff;
+}
+
+.container {
+    padding: 20px;
+}
+
+.card {
+    background: rgb(206, 206, 206);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 15px 0;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #3e4953;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #3d3d3d;
+}
+
+.hidden {
+    display: none;
+}
+
+.project-label {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    transition: transform 0.3s ease;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 250px;
+}
+
+.project-label:hover {
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+.project-title {
+    font-weight: bold;
+    font-size: px;
+    margin-bottom: 10px;
+}
+
+.project-author,
+.project-keywords {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.project-description {
+    font-size: 0.9rem;
+    margin-top: 10px;
+    flex-grow: 1;
+}
+
+.project-buttons {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.project-buttons .btn {
+    width: 20%;
+}
+
+#student-table {
+    width: 100%;
+    /* Largura total da tabela */
+    border-collapse: collapse;
+    /* Remove espaços entre as células */
+    border-radius: 5px;
+}
+
+#student-table th,
+#student-table td {
+    border: 1px solid #000000;
+    /* Adiciona borda às células */
+    padding: 8px;
+    /* Espaçamento interno das células */
+    text-align: left;
+}
+
+#student-table th {
+    background-color: #383838;
+    /* Cor de fundo do cabeçalho */
+    font-weight: bold;
+    /* Negrito para o cabeçalho */
+    text-align: center;
+
+}
+
+#student-table tr:hover {
+    background-color: #a6cfff;
+    /* Cor de fundo ao passar o mouse */
+}
+
+#keyword-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+}
+
+#keyword-table th,
+#keyword-table td {
+    border: 1px solid #000000;
+    /* Adiciona borda às células */
+    padding: 8px;
+    /* Espaçamento interno das células */
+    text-align: center;
+    /* Centraliza o texto nas células */
+}
+
+#keyword-table th {
+    background-color: #383838;
+    /* Cor de fundo do cabeçalho */
+    font-weight: bold;
+    /* Negrito para o cabeçalho */
+}
+
+#keyword-table tr:hover {
+    background-color: #a6cfff;
+    /* Cor de fundo ao passar o mouse */
+}
+
+#knowledge-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+}
+
+#knowledge-table th,
+#knowledge-table td {
+    border: 1px solid #000000;
+    /* Adiciona borda às células */
+    padding: 8px;
+    /* Espaçamento interno das células */
+    text-align: center;
+    /* Centraliza o texto nas células */
+}
+
+#knowledge-table th {
+    background-color: #383838;
+    /* Cor de fundo do cabeçalho */
+    font-weight: bold;
+    /* Negrito para o cabeçalho */
+}
+
+#knowledge-table tr:hover {
+    background-color: #a6cfff;
+    /* Cor de fundo ao passar o mouse */
+}
+
+.dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: none;
+    /* Inicialmente escondido */
+    flex-direction: column;
+    min-width: 200px;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+    /* Transição suave */
+}
+
+.dropdown.show {
+    display: flex;
+    /* Exibe o menu */
+    opacity: 1;
+    /* Opacidade total */
+}
