@@ -1,0 +1,1 @@
+Diretorio onde todos os arquivos html devem ser salvos, exceto pelo home.html que refere-se ao arquivo principal que dá acesso aos demais.

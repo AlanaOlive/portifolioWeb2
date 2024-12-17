@@ -1,0 +1,1 @@
+Diretorio onde todos os arquivos de java scripts devem ser armazenados, devidamente nomeados com seu objetivo ou identificação de onde será utilizado.

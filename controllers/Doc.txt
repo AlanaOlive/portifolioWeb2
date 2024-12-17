@@ -1,0 +1,1 @@
+Local para arquivos de controle, conexão com o banco, etc.
