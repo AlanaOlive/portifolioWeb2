@@ -11,7 +11,7 @@ CREATE TABLE users(
 CREATE TABLE projects(
 	id INT PRIMARY KEY,
 	project_name VARCHAR(50),
-	project_resume VARCHAR(180)	
+	project_resume VARCHAR(180),	
 	active BOOL,
 	last_update datetime
 );
@@ -19,7 +19,7 @@ CREATE TABLE projects(
 CREATE TABLE keyword_projects(
 	id INT PRIMARY KEY,
 	id_project INT,
-	keyword VARCHAR(20)
+	keyword VARCHAR(20),
 	active BOOL,
 	last_update datetime
 );
@@ -27,7 +27,7 @@ CREATE TABLE keyword_projects(
 CREATE TABLE authors_projects(
 	id INT PRIMARY KEY,
 	id_author int,
-	id_project int
+	id_project INT,
 	active BOOL,
 	last_update datetime
 

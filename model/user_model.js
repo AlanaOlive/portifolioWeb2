@@ -1,6 +1,7 @@
-const db = require('../confg/db_connection')
+const { DataTypes } = require('sequelize');  
+const db = require('../confg/db_connection'); 
 
-const User = db.sequelize.define('User', {
+const User = db.define('User', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,  
@@ -21,7 +22,8 @@ const User = db.sequelize.define('User', {
     timestamps: false    
   });
 
-// Sincronizando o modelo com o banco de dados
+module.exports = User;
+
 db.sync()
 .then(() => {
   console.log('Modelo sincronizado com o banco de dados!');
