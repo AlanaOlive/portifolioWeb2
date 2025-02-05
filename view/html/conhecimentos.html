@@ -13,7 +13,8 @@
         }
 
         .form-container {
-            max-width: 600px; /* Reduzido de 800px para 600px */
+            max-width: 600px;
+            /* Reduzido de 800px para 600px */
             margin: 40px auto;
             padding: 20px;
             border: 1px solid #ddd;
@@ -44,18 +45,21 @@
             margin-top: 10px;
             display: flex;
             align-items: center;
-            width: 40%; /* O slider ocupa 40% da largura do container */
+            width: 40%;
+            /* O slider ocupa 40% da largura do container */
             justify-content: flex-end;
         }
 
         .knowledge-level-container input {
-            width: 70%; /* O slider ocupa 70% do espaço disponível */
+            width: 70%;
+            /* O slider ocupa 70% do espaço disponível */
             margin-right: 10px;
         }
 
         .knowledge-level-container .level-output {
             font-weight: bold;
-            color: #ff5733; /* Cor mais visível */
+            color: #ff5733;
+            /* Cor mais visível */
             font-size: 1.1rem;
         }
 
@@ -74,20 +78,24 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-4">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Softwarehouse</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             Menu
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#projects">Cadastro de Projetos</a></li>
                             <li><a class="dropdown-item" href="#myProjects">Meus Projetos</a></li> <!-- Nova opção -->
                             <li><a class="dropdown-item" href="#knowledge">Conhecimentos</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="#logout">Sair</a></li>
                         </ul>
                     </li>
@@ -176,7 +184,7 @@
     <script>
         // Funcionalidade para mostrar o range e atualizar o nível de conhecimento
         document.querySelectorAll('.form-check-input').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
+            checkbox.addEventListener('change', function () {
                 const levelContainer = document.getElementById('level' + this.id.charAt(this.id.length - 1));
                 if (this.checked) {
                     levelContainer.style.display = 'flex';
@@ -188,7 +196,7 @@
 
         // Atualizar o valor do range ao mover o slider
         document.querySelectorAll('.form-range').forEach(range => {
-            range.addEventListener('input', function() {
+            range.addEventListener('input', function () {
                 const output = document.getElementById(this.id + 'Output');
                 output.textContent = this.value;
             });
