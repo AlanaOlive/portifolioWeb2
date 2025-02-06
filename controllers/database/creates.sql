@@ -41,8 +41,12 @@ CREATE TABLE knowledges(
 );
 
 CREATE TABLE users_knowledges(
-	id INT PRIMARY KEY,
-	id_user INT,
-	active BOOL,
-	last_update datetime
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_user INT,
+    id_knowledge INT,
+    level INT CHECK (level BETWEEN 0 AND 10), -- Nível de conhecimento de 0 a 10
+    active BOOL,
+    last_update DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES users(id),
+    FOREIGN KEY (id_knowledge) REFERENCES knowledges(id)
 );
