@@ -5,32 +5,36 @@ const app = express();
 app.use(express.json());
 
 //cria novo projeto
-app.post('/projects', async (req, res) => {
-  try {
-    const { project_name, project_resume, active } = req.body;
-    const newProject = await Project.create({
-      project_name,
-      project_resume,
-      active
-    });
-    res.status(201).json(newProject);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+function addProject(){
+  app.post('/submmitProject', async (req, res) => {
+    try {
+      const { project_name, project_resume, active } = req.body;
+      const newProject = await Project.create({
+        project_name,
+        project_resume,
+        active
+      });
+      res.status(201).json(newProject);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+}
+
 
 //get de todos os projetos no bd
-app.get('/projects', async (req, res) => {
+
+app.get('/cadastroProjetos', async (req, res) => {
   try {
-    const projects = await Project.findAll();
-    res.status(200).json(projects);
+    const cadastroProjetos = await Project.findAll();
+    res.status(200).json(cadastroProjetos);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
 // get por id de projeto
-app.get('/projects/:id', async (req, res) => {
+app.get('/cadastroProjetos/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const project = await Project.findByPk(id);
@@ -45,7 +49,7 @@ app.get('/projects/:id', async (req, res) => {
 });
 
 // atualiza projeto 
-app.put('/projects/:id', async (req, res) => {
+app.put('/cadastroProjetos/:id', async (req, res) => {
   const { id } = req.params;
   const { project_name, project_resume, active } = req.body;
 
@@ -68,7 +72,7 @@ app.put('/projects/:id', async (req, res) => {
 });
 
 // deleta projeto - nao usaremos provavelmente
-app.delete('/projects/:id', async (req, res) => {
+app.delete('/cadastroProjetos/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const project = await Project.findByPk(id);
