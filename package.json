@@ -1,0 +1,20 @@
+{
+  "name": "portifolioweb2",
+  "version": "1.0.0",
+  "description": "Deve-se desenvolver um sistema web que será um portfólio web de todos os alunos do Curso de Bacharelado em Engenharia de Software. Devem poder acessar esse portfólio os alunos, um administrador do sistema e qualquer usuário externo.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlanaOlive/portifolioWeb2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlanaOlive/portifolioWeb2/issues"
+  },
+  "homepage": "https://github.com/AlanaOlive/portifolioWeb2#readme"
+}

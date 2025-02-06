@@ -1,7 +1,7 @@
 const express = require('express');
 const Project = require('../../model/projects_model'); 
 const app = express();
-const port = 3000;
+
 
 app.use(express.json());
 
@@ -85,6 +85,6 @@ app.delete('/projects/:id', async (req, res) => {
 });
 
 // Inicia o servidor
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
-});
+//app.listen(port, () => {
+//  console.log(`Servidor rodando em http://localhost:${port}`);
+//});
