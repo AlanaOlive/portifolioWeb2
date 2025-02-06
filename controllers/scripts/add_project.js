@@ -2,7 +2,6 @@ const express = require('express');
 const Project = require('../../model/projects_model'); 
 const app = express();
 
-
 app.use(express.json());
 
 //cria novo projeto

@@ -20,7 +20,7 @@ document.getElementById('projectForm').addEventListener('submit', function (even
         authors: authors 
     };
 
-    fetch('http://localhost:3000/projects', {
+    fetch('http://localhost:3000/cadastroProjetos', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
