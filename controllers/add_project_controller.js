@@ -15,12 +15,12 @@ document.getElementById('projectForm').addEventListener('submit', function (even
     const projectData = {
         project_name: projectName,
         project_resume: projectSummary,
-        project_link: projectLink,
-        keywords: keywords, 
-        authors: authors 
+        project_link: projectLink
+        //keywords: keywords, 
+        //authors: authors 
     };
 
-    fetch('http://localhost:3000/cadastroProjetos', {
+    fetch('http://localhost:3000/submitProject', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

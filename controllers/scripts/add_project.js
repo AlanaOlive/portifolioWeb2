@@ -5,9 +5,8 @@ const app = express();
 app.use(express.json());
 
 //cria novo projeto
-function addProject(){
-  app.post('/submmitProject', async (req, res) => {
-    try {
+async function addProject(req, res){
+    try {      
       const { project_name, project_resume, active } = req.body;
       const newProject = await Project.create({
         project_name,
@@ -16,9 +15,9 @@ function addProject(){
       });
       res.status(201).json(newProject);
     } catch (error) {
+      console.error('Erro ao criar projeto:', error);
       res.status(500).json({ error: error.message });
     }
-  });
 }
 
 
@@ -86,6 +85,8 @@ app.delete('/cadastroProjetos/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+module.exports = {addProject};
 
 // Inicia o servidor
 //app.listen(port, () => {
