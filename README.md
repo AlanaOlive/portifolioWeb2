@@ -8,3 +8,6 @@ Deve-se desenvolver um sistema web que será um portfólio web de todos os aluno
 
 -- Necessário instalar a biblioteca express:
 1. no prompt rodar o comando npm install express
+
+-- Necessário instalar a biblioteca ejs:
+1. no prompt de commando npm install ejs

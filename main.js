@@ -4,6 +4,8 @@ const path = require('path');
 const Project  = require('./controllers/scripts/add_project');
 const project_object = new Project();
 
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '\\view\\html');
 
 const PORT = process.env.PORT || 3000;
 
@@ -11,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'controllers')));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/home.html');
+    project_object.getAllProjects(req, res);
 });
 
 app.route('/cadastroProjetos')
@@ -37,12 +39,6 @@ app.route('/index_adm')
     .get((req, res) => {
         res.sendFile(path.join(__dirname, '/view/html/index_adm.html'));
     });
-
- app.route('/projetos')
-    .get((res,req) => {
-        project_object.getAllProjects(res,req);
-    })        
-     
 
    
 module.exports = app;

@@ -20,10 +20,11 @@ class ProjectClass {
   // Get de todos os projetos no BD
   async getAllProjects(req, res) {
     try {
-      const cadastroProjetos = await Project.findAll();
-      res.status(200).json(cadastroProjetos);
+      const projetos = await Project.findAll();  // Busca os projetos do banco
+      res.render('home', { projetos });  // Renderiza a página home.ejs com os dados dos projetos
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      console.error('Erro ao buscar projetos:', error);
+      res.status(500).send('Erro ao carregar projetos');
     }
   }
 

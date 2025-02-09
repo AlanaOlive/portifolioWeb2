@@ -84,18 +84,14 @@
 
     <div class="gallery-container">
         <div class="project-grid">
-            <a href="#project1" class="project-label">
-                <div class="project-title">Projeto 1</div>
-                <div class="project-author">Autor: João Silva</div>
-                <div class="project-keywords">Palavras-chave: software, inovação</div>
-                <div class="project-description">Descrição: Este é um projeto de exemplo para demonstrar a galeria responsiva.</div>
-            </a>
-            <a href="#project2" class="project-label">
-                <div class="project-title">Projeto 2</div>
-                <div class="project-author">Autor: Maria Oliveira</div>
-                <div class="project-keywords">Palavras-chave: tecnologia, design</div>
-                <div class="project-description">Descrição: Outro exemplo de projeto que pode ser exibido na galeria.</div>
-            </a>
+            <% projetos.forEach(projeto => { %>
+                <a href="#<%= projeto.id %>" class="project-label">
+                    <div class="project-title"><%= projeto.project_name %></div>
+                    <div class="project-author">Autor: <%= projeto.author || 'Autor desconhecido' %></div>
+                    <div class="project-keywords">Palavras-chave: <%= projeto.keywords || 'N/A' %></div>
+                    <div class="project-description">Descrição: <%= projeto.project_resume %></div>
+                </a>
+            <% }) %>
         </div>
     </div>
 
