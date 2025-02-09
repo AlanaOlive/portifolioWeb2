@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const { addProject } = require('./controllers/scripts/add_project');
-//const Project = require('./controllers/scripts/add_project.js');
+const Project  = require('./controllers/scripts/add_project');
+const project_object = new Project();
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -18,7 +19,7 @@ app.route('/cadastroProjetos')
         res.sendFile(path.join(__dirname, '/view/html/cadastroProjetos.html'));
     })
     .post(async (req,res)=>{
-        addProject(req, res);
+        project_object.addProject(req, res); 
     });
     
 
@@ -37,10 +38,12 @@ app.route('/index_adm')
         res.sendFile(path.join(__dirname, '/view/html/index_adm.html'));
     });
 
-// app.route('/submitProject')
-//     .post(async (req,res)=>{
-//         Project.addProject(req, res);
-// });
+ app.route('/projetos')
+    .get((res,req) => {
+        project_object.getAllProjects(res,req);
+    })        
+     
+
    
 module.exports = app;
 // Inicia o servidor

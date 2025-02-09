@@ -1,0 +1,1 @@
+Diretório para modelos node.js de todas as entidades do projeto.
