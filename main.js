@@ -40,6 +40,10 @@ app.route('/index_adm')
         res.sendFile(path.join(__dirname, '/view/html/index_adm.html'));
     });
 
+app.route('/projetos/:id')
+    .get((req, res) => {
+        project_object.getProjectById(req,res);
+    })
    
 module.exports = app;
 // Inicia o servidor

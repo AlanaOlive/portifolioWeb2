@@ -30,13 +30,13 @@ class ProjectClass {
 
   // Get por ID de projeto
   async getProjectById(req, res) {
-    const { id } = req.params;
+    const id = req.params.id; 
     try {
       const project = await Project.findByPk(id);
       if (project) {
-        res.status(200).json(project);
+        res.render('projeto', {project});
       } else {
-        res.status(404).json({ message: 'Project not found' });
+        res.status(404).json({ message: 'Projeto não encontrado' });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
