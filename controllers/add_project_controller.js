@@ -1,6 +1,5 @@
-
 document.getElementById('projectForm').addEventListener('submit', function (event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const projectName = document.getElementById('projectName').value;
     const projectSummary = document.getElementById('projectSummary').value;
@@ -20,20 +19,20 @@ document.getElementById('projectForm').addEventListener('submit', function (even
         //authors: authors 
     };
 
-    fetch('http://localhost:3000/submitProject', {
+    fetch('http://localhost:3000/cadastroProjetos', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(projectData) 
+        body: JSON.stringify(projectData)
     })
-    .then(response => response.json()) 
-    .then(data => {
-        console.log('Projeto criado com sucesso:', data);
-        alert('Projeto cadastrado com sucesso!'); 
-    })
-    .catch(error => {
-        console.error('Erro ao cadastrar projeto:', error);
-        alert('Erro ao cadastrar o projeto'); 
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log('Projeto criado com sucesso:', data);
+            alert('Projeto cadastrado com sucesso!');
+        })
+        .catch(error => {
+            console.error('Erro ao cadastrar projeto:', error);
+            alert('Erro ao cadastrar o projeto');
+        });
 });
