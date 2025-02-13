@@ -49,8 +49,7 @@ app.route('/projetos/:id')
 
     })
     .delete((req, res) =>{
-        console.log('Requisição DELETE recebida');
-        project_object.deleteProject(req,res);
+        project_object.deleteProject(req, res);
     })
    
 module.exports = app;

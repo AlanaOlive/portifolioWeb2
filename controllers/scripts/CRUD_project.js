@@ -75,17 +75,17 @@ class ProjectClass {
   }
 
   // Deleta projeto
-  async deleteProject(req, res) { //retornando erro 400, verificar
-    const { id } = req.params.id;
+  async deleteProject(req, res) { 
+    const id  = req.params.id;
     try {
       const project = await Project.findByPk(id);
       if (project) {
         project.active = 0;
         project.last_update = new Date();
-        res.status(204).send();
+        project.save();
+        res.redirect('/');
       } else {
         res.status(404).json({ error: error.message });
-
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
