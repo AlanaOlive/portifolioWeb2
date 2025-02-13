@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const Project  = require('./controllers/scripts/add_project');
+const Project  = require('./controllers/scripts/CRUD_project');
 const project_object = new Project();
 const methodOverride = require('method-override');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '\\view\\html');
 app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: true })); 
 
 const PORT = process.env.PORT || 3000;
 
@@ -27,7 +28,6 @@ app.route('/cadastroProjetos')
         project_object.addProject(req, res); 
     });
     
-
 app.route('/meusProjetos')
     .get((req, res) => {
         res.sendFile(path.join(__dirname, '/view/html/meusProjetos.html'));
@@ -49,6 +49,7 @@ app.route('/projetos/:id')
 
     })
     .delete((req, res) =>{
+        console.log('Requisição DELETE recebida');
         project_object.deleteProject(req,res);
     })
    

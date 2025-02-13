@@ -12,6 +12,7 @@ CREATE TABLE projects(
 	id INT PRIMARY KEY AUTO_INCREMENT ,
 	project_name VARCHAR(50),
 	project_resume VARCHAR(180),	
+	project_link varchar(50),
 	active BOOL,
 	last_update datetime
 );

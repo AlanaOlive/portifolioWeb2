@@ -16,6 +16,10 @@ const Project = db.define('Project', {
     type: DataTypes.STRING(180), 
     allowNull: true             
   },
+  project_link: {
+    type: DataTypes.STRING,
+    allowNull:false
+  },
   active: {
     type: DataTypes.BOOLEAN,    
     allowNull: false,           

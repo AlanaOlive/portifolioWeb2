@@ -31,4 +31,3 @@ db.sync()
 .catch(err => {
   console.error('Erro ao sincronizar o modelo:', err);
 });
-
