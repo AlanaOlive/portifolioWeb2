@@ -11,3 +11,6 @@ Deve-se desenvolver um sistema web que será um portfólio web de todos os aluno
 
 -- Necessário instalar a biblioteca ejs:
 1. no prompt de commando npm install ejs
+
+-- Necessário instalar a biblioteca method-override
+npm install method-override

@@ -31,6 +31,16 @@ body {
     font-size: 0.9rem;
     color: #555;
 }
+
+#button-delete{
+    background-color: rgb(139, 26, 26);
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px; 
+}
+
 @media (min-width: 768px) {
     .project-grid {
         display: grid;

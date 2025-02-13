@@ -3,9 +3,11 @@ const app = express();
 const path = require('path');
 const Project  = require('./controllers/scripts/add_project');
 const project_object = new Project();
+const methodOverride = require('method-override');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '\\view\\html');
+app.use(methodOverride('_method'));
 
 const PORT = process.env.PORT || 3000;
 
@@ -44,6 +46,10 @@ app.route('/index_adm')
 app.route('/projetos/:id')
     .get((req, res) => {
         project_object.getProjectById(req,res);
+
+    })
+    .delete((req, res) =>{
+        project_object.deleteProject(req,res);
     })
    
 module.exports = app;

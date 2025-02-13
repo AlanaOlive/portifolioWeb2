@@ -17,10 +17,16 @@ class ProjectClass {
     }
   }
 
-  // Get de todos os projetos no BD
+  // Get de todos os projetos no BD que estão ativos
   async getAllProjects(req, res) {
     try {
-      const projetos = await Project.findAll();  // Busca os projetos do banco
+      const projetos = await Project.findAll(
+      {
+        where:{
+          active : 1
+        }
+      }
+      );  // Busca os projetos do banco
       res.render('home', { projetos });  // Renderiza a página home.ejs com os dados dos projetos
     } catch (error) {
       console.error('Erro ao buscar projetos:', error);
@@ -66,13 +72,14 @@ class ProjectClass {
     }
   }
 
-  // Deleta projeto (não usaremos provavelmente)
+  // Deleta projeto
   async deleteProject(req, res) {
     const { id } = req.params;
     try {
       const project = await Project.findByPk(id);
       if (project) {
-        await project.destroy();
+        project.active = 0;
+        project.last_update = new Date();
         res.status(204).send();
       } else {
         res.status(404).json({ message: 'Project not found' });
