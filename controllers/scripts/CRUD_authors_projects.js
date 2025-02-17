@@ -53,7 +53,7 @@ class AuthorsClass{
       const entry = await AuthorProject.findByPk(req.params.id);
       if (!entry) return res.status(404).json({ error: 'Registro não encontrado' });
       entry.active = 0;
-      entry.Date = new Date()      ;
+      entry.last_update = new Date()      ;
       res.status(200).json({ message: 'Registro excluído com sucesso' });
     } catch (error) {
       res.status(500).json({ error: 'Erro ao excluir o registro' });
