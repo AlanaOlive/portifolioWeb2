@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const AuthorProject = require('../models/AuthorProject');
 
 class AuthorsClass{
@@ -15,7 +16,13 @@ class AuthorsClass{
   //get de todos os autores
   async getAllAuthors(req, res){
     try {
-      const entries = await AuthorProject.findAll();
+      const entries = await AuthorProject.findAll(
+        {
+          where:{
+            active: 1
+          }
+        }        
+      );
       res.status(200).json(entries);
     } catch (error) {
       res.status(500).json({ error: 'Erro ao buscar os registros' });

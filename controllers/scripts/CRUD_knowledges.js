@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const Knowledge = require('../models/Knowledge');
 
 class KnowledgeClass{
@@ -19,7 +20,13 @@ class KnowledgeClass{
     //buscar todos os conhecimentos
     async getAllKnowledges(req,res){
         try {
-            const knowledges = await Knowledge.findAll();
+            const knowledges = await Knowledge.findAll(
+              {
+                where:{
+                  active: 1
+                }
+              }
+            );
             return res.status(200).json(knowledges);
           } catch (error) {
             console.error(error);

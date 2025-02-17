@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const KeywordProject = require('../models/KeywordProject');
 class KeywordsClass{
     // CREATE - Cria um novo KeywordProject
@@ -27,7 +28,13 @@ class KeywordsClass{
     // READ - Recupera todos os KeywordProjects
     async getAllKeywordProjects(req, res){
         try {
-            const keywordProjects = await KeywordProject.findAll();
+            const keywordProjects = await KeywordProject.findAll(
+                {
+                    where:{
+                        active: 1
+                    }
+                }
+            );
             res.status(200).json(keywordProjects);
         } catch (error) {
             console.error(error);
