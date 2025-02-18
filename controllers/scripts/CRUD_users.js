@@ -93,7 +93,6 @@ class UserClass{
           } 
         });
         
-        console.log(users.json);
         if (users.length > 0) {
           req.session.login = req.body.user_name;
           res.locals.login = req.body.user_name; 
@@ -112,7 +111,7 @@ class UserClass{
 
     async getLogout(req, res) {
       req.session.destroy();
-      res.redirect('/');
+      res.redirect('/login');
     }
 }
 

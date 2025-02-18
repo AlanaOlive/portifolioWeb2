@@ -3,8 +3,6 @@ var session = require('express-session');
 const app = express();
 const path = require('path');
 const middlewares = require('./middlewares/middlewares');
-const Project  = require('./controllers/scripts/CRUD_project');
-const project_object = new Project();
 const methodOverride = require('method-override');
 const routes = require('./controllers/routes/routes');
 
@@ -25,13 +23,8 @@ app.use(routes);
 
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'controllers/')));
-app.use(express.static(path.join(__dirname, 'view/')));
+app.use(express.static(path.join(__dirname, 'view')));
 app.use(express.json());
-
-app.get('/', (req, res) => {
-    project_object.getAllProjects(req, res);
-});
    
 module.exports = app;
 // Inicia o servidor
