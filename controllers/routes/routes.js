@@ -1,6 +1,8 @@
 
 const express = require('express');
 const router = express.Router();
+const User = require('../scripts/CRUD_users'); 
+const user_object = new User();
 const Project  = require('../scripts/CRUD_project'); 
 const project_object = new Project();
 const Authors = require('../scripts/CRUD_authors_projects');
@@ -8,6 +10,10 @@ const authors_object = new Authors();
 const Keywords = require('../scripts/CRUD_keywords');
 const keywords_object = new Keywords();
 const path = require('path');
+
+router.get('/login', user_object.getLogin);
+router.post('/postLogin', user_object.postLogin);
+router.get('/logout', user_object.getLogout);
 
 router.route('/cadastroProjetos')
     .get(async (req, res) => {

@@ -12,6 +12,10 @@ const User = db.define('User', {
       type: DataTypes.STRING(50), 
       allowNull: false 
     },
+    password: {
+      type: DataTypes.STRING(30), 
+      allowNull: false 
+    },
     adm_roles: {
       type: DataTypes.BOOLEAN, 
       allowNull: false,         
