@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const Knowledge = require('../models/Knowledge');
 
 class KnowledgeClass{

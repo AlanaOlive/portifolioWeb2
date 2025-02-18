@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const AuthorProject = require('../models/AuthorProject');
 
 class AuthorsClass{

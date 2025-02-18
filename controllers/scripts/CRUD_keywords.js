@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const KeywordProject = require('../models/KeywordProject');
 class KeywordsClass{
     // CREATE - Cria um novo KeywordProject
