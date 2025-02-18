@@ -13,7 +13,7 @@ Deve-se desenvolver um sistema web que será um portfólio web de todos os aluno
 1. no prompt rodar o comando: npm install express-session
 
 -- Necessário instalar a biblioteca ejs:
-1. no prompt de commando npm: install ejs
+1. no prompt de commando: npm install ejs
 
 -- Necessário instalar a biblioteca method-override
 npm install method-override
