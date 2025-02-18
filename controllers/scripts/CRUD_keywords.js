@@ -1,4 +1,4 @@
-const KeywordProject = require('../models/KeywordProject');
+const KeywordProject = require('../../model/keyword_projects_model');
 class KeywordsClass{
     // CREATE - Cria um novo KeywordProject
     async createKeywordProject(req, res){
@@ -34,7 +34,7 @@ class KeywordsClass{
                     }
                 }
             );
-            res.status(200).json(keywordProjects);
+            res.send({keywordProjects});
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: error.message });

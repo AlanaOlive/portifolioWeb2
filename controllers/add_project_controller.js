@@ -15,8 +15,6 @@ document.getElementById('projectForm').addEventListener('submit', function (even
         project_name: projectName,
         project_resume: projectSummary,
         project_link: projectLink
-        //keywords: keywords, 
-        //authors: authors 
     };
 
     fetch('http://localhost:3000/cadastroProjetos', {

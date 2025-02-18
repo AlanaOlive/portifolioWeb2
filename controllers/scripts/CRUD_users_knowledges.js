@@ -1,4 +1,4 @@
-const UserKnowledge = require('../models/UserKnowledge');
+const UserKnowledge = require('../../model/users_knowlegdes_model');
 
 class userKnowledgesClass{
   async addUserKnowledges(req,res){

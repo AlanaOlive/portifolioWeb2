@@ -127,13 +127,27 @@
                         Selecione as palavras-chave
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <% if (keywords && keywords.length > 0) { %>  <!-- Verifica se keywords não está vazio -->
+                          <% keywords.forEach((keyword) => { %>
+                            <li>
+                              <label class="dropdown-item">
+                                <input type="checkbox" name="keywords" value="<%= keyword.name %>"> <%= keyword.name %>
+                              </label>
+                            </li>
+                          <% }) %>
+                        <% } else { %>
+                          <li><label class="dropdown-item">Nenhuma palavra-chave disponível</label></li>
+                        <% } %>
+                      </ul>
+                      
+                    <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><label class="dropdown-item"><input type="checkbox" value="Inovação"> Inovação</label></li>
                         <li><label class="dropdown-item"><input type="checkbox" value="Tecnologia"> Tecnologia</label>
                         </li>
                         <li><label class="dropdown-item"><input type="checkbox" value="Software"> Software</label></li>
                         <li><label class="dropdown-item"><input type="checkbox" value="Design"> Design</label></li>
                         <li><label class="dropdown-item"><input type="checkbox" value="Pesquisa"> Pesquisa</label></li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="form-text">Selecione as palavras-chave desejadas.</div>
             </div>
@@ -147,11 +161,20 @@
                         Selecione os autores
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownAuthorsButton">
+                        <% authors.forEach((author) => { %>
+                          <li>
+                            <label class="dropdown-item">
+                              <input type="checkbox" value="<%= author.name %>"> <%= author.name %>
+                            </label>
+                          </li>
+                        <% }) %>
+                      </ul>                      
+                    <!-- <ul class="dropdown-menu" aria-labelledby="dropdownAuthorsButton">
                         <li><label class="dropdown-item"><input type="checkbox" value="Autor 1"> Autor 1</label></li>
                         <li><label class="dropdown-item"><input type="checkbox" value="Autor 2"> Autor 2</label></li>
                         <li><label class="dropdown-item"><input type="checkbox" value="Autor 3"> Autor 3</label></li>
                         <li><label class="dropdown-item"><input type="checkbox" value="Autor 4"> Autor 4</label></li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="form-text">Selecione os autores para vincular ao projeto.</div>
             </div>

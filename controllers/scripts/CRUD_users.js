@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../../model/user_model');
 
 class UsersClass{
     async addUser(req,res){

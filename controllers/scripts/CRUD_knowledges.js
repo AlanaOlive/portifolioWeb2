@@ -1,4 +1,4 @@
-const Knowledge = require('../models/Knowledge');
+const Knowledge = require('../../model/knowledges_model');
 
 class KnowledgeClass{
     //add conhecimento

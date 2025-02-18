@@ -5,11 +5,16 @@ const Project  = require('../scripts/CRUD_project');
 const project_object = new Project();
 const Authors = require('../scripts/CRUD_authors_projects');
 const authors_object = new Authors();
+const Keywords = require('../scripts/CRUD_keywords');
+const keywords_object = new Keywords();
 const path = require('path');
 
 router.route('/cadastroProjetos')
-    .get((req, res) => {
-        res.sendFile(path.join(__dirname, '/view/html/cadastroProjetos.html'));
+    .get(async (req, res) => {
+        const authors = await authors_object.getAllAuthors(req,res);//errado, deve ser user
+        const keywords = await keywords_object.getAllKeywordProjects(req,res);
+        res.render('cadastroProjetos', { keywords, authors });
+        //res.sendFile(path.join(__dirname, '../../view/html/cadastroProjetos.ejs'));
     })
     .post(async (req,res)=>{
         project_object.addProject(req, res); 

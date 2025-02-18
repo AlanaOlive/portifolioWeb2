@@ -1,4 +1,4 @@
-const AuthorProject = require('../models/AuthorProject');
+const AuthorProject = require('../../model/authors_projects_model');
 
 class AuthorsClass{
   // Criar um novo registro
@@ -15,14 +15,14 @@ class AuthorsClass{
   //get de todos os autores
   async getAllAuthors(req, res){
     try {
-      const entries = await AuthorProject.findAll(
+      const authors = await AuthorProject.findAll(
         {
           where:{
             active: 1
           }
         }        
       );
-      res.status(200).json(entries);
+      res.send({authors});
     } catch (error) {
       res.status(500).json({ error: 'Erro ao buscar os registros' });
     }
