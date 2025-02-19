@@ -21,8 +21,11 @@ document.getElementById('projectForm').addEventListener('submit', function (even
         project_link: projectLink
     };
 
-    fetch('http://localhost:3000/cadastroProjetos', {
-        method: 'POST',
+    const fetchRoute = document.getElementById('btnSave').dataset.route;
+    const fetchMethod = document.getElementById('btnSave').dataset.method;
+
+    fetch(fetchRoute, {
+        method: fetchMethod,
         headers: {
             'Content-Type': 'application/json'
         },
@@ -30,8 +33,8 @@ document.getElementById('projectForm').addEventListener('submit', function (even
     })
         .then(response => response.json())
         .then(data => {
-            console.log('Projeto criado com sucesso:', data);
-            alert('Projeto cadastrado com sucesso!');
+            console.log('Projeto salvo com sucesso:', data);
+            alert('Projeto salvo com sucesso!');
         })
         .catch(error => {
             console.error('Erro ao cadastrar projeto:', error);

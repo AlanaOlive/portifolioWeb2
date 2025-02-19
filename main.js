@@ -9,7 +9,11 @@ const routes = require('./controllers/routes/routes');
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '\\view\\html');
 app.use(methodOverride('_method'));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
+
+app.use(express.static(path.join(__dirname, 'controllers/')));
+app.use(express.static(path.join(__dirname, 'view/')));
 
 app.use(session({
     secret:'Sup3rCr1pt0#UTFPR2025#4ever', 
@@ -22,10 +26,6 @@ app.use(middlewares.logRegister,middlewares.sessionControl);
 app.use(routes);
 
 const PORT = process.env.PORT || 3000;
-
-app.use(express.static(path.join(__dirname, 'controllers/')));
-app.use(express.static(path.join(__dirname, 'view/')));
-app.use(express.json());
    
 module.exports = app;
 // Inicia o servidor
