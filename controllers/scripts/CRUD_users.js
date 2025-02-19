@@ -19,7 +19,9 @@ class UserClass{
     async getAllUsers(req,res){
         try {
             const users = await User.findAll();
-            return res.status(200).json(users);
+            return users;
+            //res.render('cadastroProjetos', {users});
+            //return res.status(200).json(users);
           } catch (error) {
             console.error(error);
             return res.status(500).json({ message: 'Erro ao obter os usuários.' });

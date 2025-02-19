@@ -11,6 +11,10 @@ document.getElementById('projectForm').addEventListener('submit', function (even
     const authorCheckboxes = document.querySelectorAll('#dropdownAuthorsButton + .dropdown-menu input:checked');
     const authors = Array.from(authorCheckboxes).map(checkbox => checkbox.value);
 
+    console.log('Project Name:', projectName);
+    console.log('Project Summary:', projectSummary);
+    console.log('Project Link:', projectLink);
+    
     const projectData = {
         project_name: projectName,
         project_resume: projectSummary,

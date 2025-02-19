@@ -42,16 +42,13 @@
                 <p class="card-text"><%= project.project_resume %></p>
 
                 <h5 class="card-title">Link Externo</h5>
-                <p class="card-text"><a href="<%= project.projectLink %>" target="_blank"><%= project.project_link %></a></p>
+                <p class="card-text"><a href="<%= project.project_link %>" target="_blank"><%= project.project_link %></a></p>
                                      
                 <div class="form-buttons">
                     <button type="button" class="btn btn-secondary" onclick="window.history.back();">Voltar</button>
-                    <button type="button"  class="btn btn-primary" onclick="">Editar</button> 
-                    <!-- <form action="/projetos/<%= project.id %>?_method=UPDATE" method="UPDATE">
-                        <button type="submit"  class="btn btn-primary" onclick="">Salvar</button> 
-                    </form>    copiar isso depois para o form de edição                             -->
-                    <form action="/projetosDelete/<%= project.id %>" method="POST">
-                        <button type="submit" id="button-delete" class="btn btn-secondary" onclick="deleteProject(event)"">Deletar</button> 
+                    <button type="button"  class="btn btn-primary" onclick="window.location.href='/editProject/<%=project.id%>'">Editar</button>                   
+                    <form action="/projetos/<%= project.id %>?_method=DELETE" method="POST">
+                        <button type="submit" id="button-delete" class="btn btn-secondary" onclick="deleteProject(event)">Deletar</button> 
                     </form>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -101,22 +102,26 @@
         <h2 class="text-center mb-4">Cadastrar Novo Projeto</h2>
         <form id="projectForm" method="POST">
             <div class="mb-3">
-                <label for="projectName" class="form-label">Nome do Projeto</label>
-                <input type="text" class="form-control" id="projectName" placeholder="Digite o nome do projeto"
-                    required>
-            </div>
+                <label for="projectName" class="form-label">Nome do projeto</label>
+                <% if (project && project.project_name) { %>
+                    <input type="text" class="form-control" id="projectName" value="<%= project.project_name %>" required>
+                    <div class="mb-3">
+                        <label for="projectSummary" class="form-label">Resumo do projeto</label>                
+                        <textarea class="form-control" id="projectSummary" rows="3" 
+                            required ><%= project.project_resume %></textarea>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="projectLink" class="form-label">Link externo</label>
+                        <input type="url" class="form-control" id="projectLink" value="<%= project.project_link %>"
+                            required>
+                    </div>
+                <% } else { %>
+                    <input type="text" class="form-control" id="projectName" placeholder="Nome do projeto não disponível" required>
+                <% } %>
+            </div>            
 
-            <div class="mb-3">
-                <label for="projectSummary" class="form-label">Resumo</label>
-                <textarea class="form-control" id="projectSummary" rows="3"
-                    placeholder="Forneça um breve resumo do projeto" required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="projectLink" class="form-label">Link Externo</label>
-                <input type="url" class="form-control" id="projectLink" placeholder="Digite o link externo (ex: GitHub)"
-                    required>
-            </div>
+            
 
             <div class="mb-3">
                 <label for="keywords" class="form-label">Palavras-Chave</label>
@@ -165,7 +170,9 @@
 
             <div class="form-buttons">
                 <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                  <form action="/editProject/<%= project.id %>?_method=PUT" method="POST">
+                        <button type="submit"  class="btn btn-primary" onclick="">Salvar</button>
+                    </form>                         
             </div>
         </form>
     </div>

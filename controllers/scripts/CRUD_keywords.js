@@ -34,7 +34,7 @@ class KeywordsClass{
                     }
                 }
             );
-            res.send({keywordProjects});
+            return keywordProjects;
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: error.message });

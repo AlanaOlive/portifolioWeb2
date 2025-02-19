@@ -5,7 +5,7 @@ const User = require('../scripts/CRUD_users');
 const user_object = new User();
 const Project  = require('../scripts/CRUD_project'); 
 const project_object = new Project();
-const Authors = require('../scripts/CRUD_authors_projects');
+const Authors = require('../scripts/CRUD_users');
 const authors_object = new Authors();
 const Keywords = require('../scripts/CRUD_keywords');
 const keywords_object = new Keywords();
@@ -22,35 +22,44 @@ router.get('/', (req, res) => {
 
 router.route('/cadastroProjetos')
     .get(async (req, res) => {
-        const authors = await authors_object.getAllAuthors(req,res);//errado, deve ser user
+        const authors = await authors_object.getAllUsers(req,res);
         const keywords = await keywords_object.getAllKeywordProjects(req,res);
-        res.render('cadastroProjetos', { keywords, authors });
-        //res.sendFile(path.join(__dirname, '../../view/html/cadastroProjetos.ejs'));
+        res.render('cadastroProjetos', { keywords, authors });        
     })
-    .post(async (req,res)=>{
+    .post( async(req,res)=>{
         project_object.addProject(req, res); 
     });
     
 router.route('/meusProjetos')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, '/view/html/meusProjetos.html'));
+        res.sendFile(path.join(__dirname, '../../view/html/meusProjetos.html'));
     });
 
 router.route('/conhecimentos')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, '/view/html/conhecimentos.html'));
+        res.sendFile(path.join(__dirname, '../../view/html/conhecimentos.html'));
     });
 
 router.route('/index_adm')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, '/view/html/index_adm.html'));
+        res.sendFile(path.join(__dirname, '../../view/html/index_adm.html'));
     });
 
-router.post('/projetosDelete/:id', project_object.deleteProject);
+router.route('/editProject/:id')
+    .get(async (req,res) =>{
+        const project = await project_object.getProjectById(req,res);
+        const keywords = await keywords_object.getAllKeywordProjects(req,res);
+        const authors = await authors_object.getAllUsers(req,res);
+        res.render('editProject', {project, keywords, authors});
+    })
+    .put((req, res)=>{
+        project_object.updateProject(req,res);
+    })
 
 router.route('/projetos/:id')
-    .get((req, res) => {
-        project_object.getProjectById(req,res);
+    .get(async (req, res) => {
+        const project = await project_object.getProjectById(req,res);
+        res.render('projeto', {project});
 
     })
     .delete((req, res) =>{

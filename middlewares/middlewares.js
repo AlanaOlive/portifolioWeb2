@@ -12,7 +12,7 @@ module.exports = {
             }
             next();
         }
-        else if ((req.url == '/') && (req.method == 'GET')) next();
+        //else if ((req.url == '/') && (req.method == 'GET')) next();
         else if ((req.url == '/login') && (req.method == 'GET')) next();
         else if ((req.url == '/postLogin') && (req.method == 'POST')) next();
         else if ((req.url.startsWith('/styles'))) next();

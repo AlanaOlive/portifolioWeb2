@@ -40,11 +40,7 @@ class ProjectClass {
     const id = req.params.id; 
     try {
       const project = await Project.findByPk(id);
-      if (project) {
-        res.render('projeto', {project});
-      } else {
-        res.status(404).json({ message: 'Projeto não encontrado' });
-      }
+      return project;
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -82,7 +78,7 @@ class ProjectClass {
       if (project) {
         project.active = 0;
         project.last_update = new Date();
-        project.save();
+        await project.save();
         res.redirect('/');
       } else {
         res.status(404).json({ error: error.message });

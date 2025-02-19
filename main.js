@@ -23,7 +23,8 @@ app.use(routes);
 
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'view')));
+app.use(express.static(path.join(__dirname, 'controllers/')));
+app.use(express.static(path.join(__dirname, 'view/')));
 app.use(express.json());
    
 module.exports = app;
