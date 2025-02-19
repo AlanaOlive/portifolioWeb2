@@ -5,17 +5,21 @@ module.exports = {
     },
 
     sessionControl(req, res, next) {
+        let activeSession = false;
         if (req.session.login != undefined) {
             res.locals.login = req.session.login;
-            if (req.session.admin) {
-                res.locals.admin = true
-            }
+            res.locals.admin = req.session.admin  
+            activeSession = true;
             next();
+        };
+
+        if (!activeSession) {
+            res.locals.login = 'Anônimo';
+            res.locals.admin = false;
+            if ((req.url == '/login')) next();
+            else if ((req.url.startsWith('/public/')) && (req.method == 'GET')) next(); //Paginas sem necessidade de login
+            else if ((req.url.startsWith('/projetos/')) && (req.method == 'GET')) next(); //visualizar projetos sem login
+            else res.redirect('/login');
         }
-        //else if ((req.url == '/') && (req.method == 'GET')) next();
-        else if ((req.url == '/login') && (req.method == 'GET')) next();
-        else if ((req.url == '/postLogin') && (req.method == 'POST')) next();
-        else if ((req.url.startsWith('/styles'))) next();
-        else res.redirect('/login');
     }
 };

@@ -35,6 +35,23 @@ class ProjectClass {
     }
   }
 
+  // Get de projetos por autores
+  async getProjectsByAuthors(req, res, authors_project) {
+    try {
+      const projectIds = authors_project.map(item => item.id_project);
+      const projetos = await Project.findAll({
+        where:{
+          id: projectIds, 
+          active : 1
+        }
+      }); 
+      return projetos;
+    } catch (error) {
+      console.error('Erro ao buscar projetos:', error);
+      res.status(500).send('Erro ao carregar projetos');
+    }
+  }
+
   // Get por ID de projeto
   async getProjectById(req, res) {
     const id = req.params.id; 

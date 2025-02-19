@@ -7,14 +7,28 @@ const Project  = require('../scripts/CRUD_project');
 const project_object = new Project();
 const Authors = require('../scripts/CRUD_users');
 const authors_object = new Authors();
+const AuthorsProject = require('../scripts/CRUD_authors_projects');
+const authors_project_object = new AuthorsProject();
 const Keywords = require('../scripts/CRUD_keywords');
 const keywords_object = new Keywords();
 const path = require('path');
 
-/* Rotas de usuário */
-router.get('/login', user_object.getLogin);
-router.post('/postLogin', user_object.postLogin);
-router.get('/logout', user_object.getLogout);
+router.route('/login')
+    .get(async(req, res) => {
+        await user_object.getLogin(req, res);        
+    })
+    .post(async(req,res)=>{
+        await user_object.postLogin(req, res); 
+    });
+
+router.route('/logout')
+    .get(async(req, res) => {
+        await user_object.getLogout(req, res);        
+    });
+
+router.get('/public/projects', (req, res) => {
+    project_object.getAllProjects(req, res);
+});
 
 router.get('/', (req, res) => {
     project_object.getAllProjects(req, res);
@@ -26,13 +40,19 @@ router.route('/cadastroProjetos')
         const keywords = await keywords_object.getAllKeywordProjects(req,res);
         res.render('cadastroProjetos', { keywords, authors });        
     })
-    .post( async(req,res)=>{
+    .post(async(req,res)=>{
         project_object.addProject(req, res); 
     });
     
 router.route('/meusProjetos')
-    .get((req, res) => {
-        res.sendFile(path.join(__dirname, '../../view/html/meusProjetos.html'));
+    .get(async (req, res) => {
+        let projetos = [];
+        const authors = await authors_project_object.getAuthorByUser(req,res);
+        if (authors) {
+            projetos = await project_object.getProjectsByAuthors(req, res, authors);
+        } 
+        res.render('home', { projetos });    
+        //res.sendFile(path.join(__dirname, '../../view/html/meusProjetos.html'));
     });
 
 router.route('/conhecimentos')
@@ -60,7 +80,6 @@ router.route('/projetos/:id')
     .get(async (req, res) => {
         const project = await project_object.getProjectById(req,res);
         res.render('projeto', {project});
-
     })
     .delete((req, res) =>{
         project_object.deleteProject(req, res);

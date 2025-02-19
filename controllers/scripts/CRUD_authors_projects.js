@@ -1,6 +1,6 @@
 const AuthorProject = require('../../model/authors_projects_model');
 
-class AuthorsClass{
+class AuthorProjectClass{
   // Criar um novo registro
   async addAuthor(req, res){
     try {
@@ -23,6 +23,23 @@ class AuthorsClass{
         }        
       );
       res.send({authors});
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao buscar os registros' });
+    }
+  }
+
+  //get de autores por usuario logado
+  async getAuthorByUser(req, res){
+    try {
+      const authors = await AuthorProject.findAll(
+        {
+          where:{
+            id_author: 1, //implementar
+            active: 1
+          }
+        }        
+      );
+      return authors;
     } catch (error) {
       res.status(500).json({ error: 'Erro ao buscar os registros' });
     }
@@ -68,4 +85,4 @@ class AuthorsClass{
 
 }
 
-module.exports = AuthorsClass;
+module.exports = AuthorProjectClass;
