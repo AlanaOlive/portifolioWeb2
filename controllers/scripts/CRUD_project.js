@@ -28,6 +28,7 @@ class ProjectClass {
         }
       }
       );  // Busca os projetos do banco
+      res.locals.headerTitle = "Projetos da Comunidade";
       res.render('home', { projetos });  // Renderiza a página home.ejs com os dados dos projetos
     } catch (error) {
       console.error('Erro ao buscar projetos:', error);

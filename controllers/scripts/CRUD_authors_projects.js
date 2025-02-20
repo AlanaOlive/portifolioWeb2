@@ -34,7 +34,7 @@ class AuthorProjectClass{
       const authors = await AuthorProject.findAll(
         {
           where:{
-            id_author: 1, //implementar
+            id_author: req.session.user_id,
             active: 1
           }
         }        

@@ -26,7 +26,7 @@ router.route('/logout')
         await user_object.getLogout(req, res);        
     });
 
-router.get('/public/projects', (req, res) => {
+router.get('/public/projetos', (req, res) => {
     project_object.getAllProjects(req, res);
 });
 
@@ -51,6 +51,7 @@ router.route('/meusProjetos')
         if (authors) {
             projetos = await project_object.getProjectsByAuthors(req, res, authors);
         } 
+        res.locals.headerTitle = "Meus Projetos";
         res.render('home', { projetos });    
         //res.sendFile(path.join(__dirname, '../../view/html/meusProjetos.html'));
     });

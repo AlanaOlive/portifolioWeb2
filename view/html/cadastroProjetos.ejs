@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Softwarehouse - Cadastro de Projetos</title>
+    <title>Softwarehouse - Cadastrar Projeto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -23,26 +23,26 @@
         }
 
         /* Estilo do menu dropdown */
-        .dropdown-menu {
+        /* .dropdown-menu {
             max-height: 200px;
             overflow-y: auto;
             width: 100%;
             padding: 0;
-        }
+        } */
 
-        .dropdown-item input {
+        /* .dropdown-item input {
             margin-right: 10px;
-        }
+        } */
 
         /* Ajuste de alinhamento */
-        .dropdown-menu {
-            left: 0 !important;
+        /* .dropdown-menu {
+            left: 0 !important; */
             /* Alinha o dropdown à esquerda */
-        }
+        /* } */
 
-        .dropdown-toggle {
+        /* .dropdown-toggle {
             width: 100%;
-        }
+        } */
 
         .form-buttons {
             display: flex;
@@ -71,7 +71,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-4">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Softwarehouse</a>
+            <a class="navbar-brand" href="#">Cadastrar Projeto</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -79,17 +79,20 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Menu
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <%= user_name %>                          
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
-                            <!--<li><a class="dropdown-item" href="#projects">Cadastro de Projetos</a></li>-->
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="/public/projetos">Projetos</a></li>
+                            <% if(!user_external) { %>
+                            <!-- <li><a class="dropdown-item" href="/cadastroProjetos">Cadastrar Projeto</a></li> -->
                             <li><a class="dropdown-item" href="/meusProjetos">Meus Projetos</a></li>
                             <li><a class="dropdown-item" href="/conhecimentos">Conhecimentos</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                            <% if(user_admin) { %>
+                            <li><a class="dropdown-item" href= "/usuarios">Usuários</a></li>
+                            <% } %>
+                            <li><hr class="dropdown-divider"></li>
+                            <% } %>
                             <li><a class="dropdown-item" href="/logout">Sair</a></li>
                         </ul>
                     </li>
@@ -99,7 +102,7 @@
     </nav>
 
     <div class="form-container">
-        <h2 class="text-center mb-4">Cadastrar Novo Projeto</h2>
+        <!-- <h2 class="text-center mb-4">Cadastrar Novo Projeto</h2> -->
         <form id="projectForm" method="POST">
             <div class="mb-3">
                 <label for="projectName" class="form-label">Nome do Projeto</label>

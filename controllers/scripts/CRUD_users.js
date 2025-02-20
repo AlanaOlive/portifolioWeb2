@@ -85,7 +85,8 @@ class UserClass{
     async postLogin(req, res) {
       try {
         var userLogin = {
-            user_name: req.body.user_name
+            user_name: req.body.user_name,
+            user_id: 0
         }
 
         const users = await User.findAll({ 
@@ -95,11 +96,18 @@ class UserClass{
           } 
         });
         
-        if (users.length > 0) {
-          req.session.login = req.body.user_name;
-          res.locals.login = req.body.user_name; 
-          req.session.admin = users[0].adm_roles
-          res.locals.admin = users[0].adm_roles;
+        if (users.length > 0) { 
+          req.session.user_name = req.body.user_name;
+          req.session.user_id = users[0].id;
+          req.session.user_admin = users[0].adm_roles;
+          req.session.user_external = false;
+
+          res.locals.user_name = req.body.user_name; 
+          res.locals.user_id = users[0].id;
+          res.locals.user_admin = users[0].adm_roles;
+          res.locals.user_external = false;
+
+          userLogin.user_id = users[0].id;
           res.redirect('/');     
         }
         else {
