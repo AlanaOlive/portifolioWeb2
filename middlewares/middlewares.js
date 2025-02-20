@@ -12,7 +12,11 @@ module.exports = {
             res.locals.user_admin = req.session.user_admin;  
             res.locals.user_external = req.session.user_external;
             activeSession = true;
-            next();
+            if (!req.session.user_admin && (req.url.startsWith('/usuario')) ) {
+                res.redirect('/');
+            } else {
+                next();
+            }
         };
 
         if (!activeSession) {

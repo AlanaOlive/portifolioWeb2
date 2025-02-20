@@ -58,12 +58,35 @@ router.route('/meusProjetos')
 
 router.route('/conhecimentos')
     .get((req, res) => {
-        res.sendFile(path.join(__dirname, '../../view/html/conhecimentos.html'));
+        res.render('conhecimentos'); 
+        //res.sendFile(path.join(__dirname, '../../view/html/conhecimentos.html'));
     });
 
-router.route('/index_adm')
-    .get((req, res) => {
-        res.sendFile(path.join(__dirname, '../../view/html/index_adm.html'));
+router.route('/usuarios') 
+    .get(async (req, res) => {
+        const users = await user_object.getAllUsers(req, res);
+        res.render('usuarios', { users } );
+    });
+
+router.route('/usuario/:id') 
+    .get(async (req, res) => {
+        const user = await user_object.getUserById(req, res);
+        res.render('editUsuario', { user } );
+    })
+    .put(async (req, res) => {
+        await user_object.updateUser(req,res);
+    })
+    .delete(async (req, res) => {
+        await user_object.deleteUser(req, res); 
+    });
+
+router.route('/usuarioCadastrar') 
+    .get(async (req, res) => {
+        const user = []; 
+        res.render('editUsuario', { user });
+    })
+    .post(async (req, res) => {
+        await user_object.addUser(req,res);              
     });
 
 router.route('/editProject/:id')

@@ -4,9 +4,10 @@ const path = require('path');
 class UserClass{
     async addUser(req,res){
         try {
-            const { user_name, adm_roles } = req.body;
+            const { user_name, password,  adm_roles } = req.body;
             const newUser = await User.create({
               user_name,
+              password,
               adm_roles
             });
             return res.status(201).json(newUser);
@@ -33,7 +34,7 @@ class UserClass{
             const { id } = req.params;
             const user = await User.findByPk(id);
             if (user) {
-              return res.status(200).json(user);
+              return user;
             } else {
               return res.status(404).json({ message: 'Usuário não encontrado.' });
             }
