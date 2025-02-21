@@ -134,7 +134,7 @@
                           <% keywords.forEach((keyword) => { %>
                             <li>
                               <label class="dropdown-item">
-                                <input type="checkbox" name="keywords" value="<%= keyword.name %>"> <%= keyword.name %>
+                                <input type="checkbox" name="keywords" id="<%= keyword.id %>" value="<%= keyword.keyword %>"> <%= keyword.keyword %>
                               </label>
                             </li>
                           <% }) %>
@@ -158,7 +158,7 @@
                         <% authors.forEach((author) => { %>
                           <li>
                             <label class="dropdown-item">
-                              <input type="checkbox" value="<%= author.user_name %>"> <%= author.user_name %>
+                              <input type="checkbox" id="<%= author.id %>" value="<%= author.user_name %>"> <%= author.user_name %>
                             </label>
                           </li>
                         <% }) %>

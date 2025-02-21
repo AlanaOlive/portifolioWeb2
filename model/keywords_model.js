@@ -1,38 +1,33 @@
 const { DataTypes } = require('sequelize');
 const db = require('../confg/db_connection'); 
 
-const KeywordProject = db.define('KeywordProject', {
+const Keyword = db.define('Keyword', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    allowNull: false,
-    autoIncrement: true
-  },
-  id_project: {
-    type: DataTypes.INTEGER,
+    autoIncrement: true,
     allowNull: false
   },
-  id_keyword: {
-    type: DataTypes.STRING(20),
-    allowNull: false
+  keyword: {
+    type: DataTypes.STRING(50),
+    allowNull: true
   },
   active: {
     type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: true
+    allowNull: true,
+    defaultValue: null
   },
   last_update: {
     type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW
+    allowNull: true,
+    defaultValue: null
   }
 }, {
-  tableName: 'keyword_projects',
-  timestamps: false
+  tableName: 'keywords',
+  timestamps: false,
 });
 
-module.exports = KeywordProject;
-
+module.exports = Keyword;
 db.sync()
   .then(() => {
     console.log('Modelo sincronizado com o banco de dados!');

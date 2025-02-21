@@ -6,19 +6,17 @@ document.getElementById('projectForm').addEventListener('submit', function (even
     const projectLink = document.getElementById('projectLink').value;
 
     const keywordCheckboxes = document.querySelectorAll('#dropdownMenuButton + .dropdown-menu input:checked');
-    const keywords = Array.from(keywordCheckboxes).map(checkbox => checkbox.value);
+    const keywords = Array.from(keywordCheckboxes).map(checkbox => checkbox.id);
 
     const authorCheckboxes = document.querySelectorAll('#dropdownAuthorsButton + .dropdown-menu input:checked');
-    const authors = Array.from(authorCheckboxes).map(checkbox => checkbox.value);
+    const authors = Array.from(authorCheckboxes).map(checkbox => checkbox.id);
 
-    console.log('Project Name:', projectName);
-    console.log('Project Summary:', projectSummary);
-    console.log('Project Link:', projectLink);
-    
     const projectData = {
         project_name: projectName,
         project_resume: projectSummary,
-        project_link: projectLink
+        project_link: projectLink,
+        keywords_projects: keywords,
+        authors_project: authors
     };
 
     const fetchRoute = document.getElementById('btnSave').dataset.route;

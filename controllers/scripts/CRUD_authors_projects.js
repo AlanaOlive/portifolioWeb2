@@ -2,13 +2,31 @@ const AuthorProject = require('../../model/authors_projects_model');
 
 class AuthorProjectClass{
   // Criar um novo registro
-  async addAuthor(req, res){
+  async addAuthor(req, res, id_project){
     try {
-      const { id_author, id_project, active } = req.body;
-      const newEntry = await AuthorProject.create({ id_author, id_project, active });
-      res.status(201).json(newEntry);
+      const authors = req.body.authors_project; 
+      const active = req.body.active;     
+      const last_update = new Date();
+
+      if (!authors || !Array.isArray(authors) || authors.length === 0) {
+        console.log({ error: 'Nenhum autor informado ou formato inválido.' });
+      }
+  
+      const authorProjectPromises = authors.map(author => {
+        if (!author) {
+          console.log({ error: 'ID de autor inválido', author });
+        }
+  
+        AuthorProject.create({
+          id_author: author,
+          id_project,
+          active,
+          last_update
+        });
+      });
+       await Promise.all(authorProjectPromises);
     } catch (error) {
-      res.status(500).json({ error: 'Erro ao criar o registro' });
+      console.log({ error: 'Erro ao criar o registro' });
     }
   }
 
@@ -36,6 +54,7 @@ class AuthorProjectClass{
           where:{
             id_author: req.session.user_id,
             active: 1
+            
           }
         }        
       );
@@ -46,13 +65,19 @@ class AuthorProjectClass{
   }
 
   //get de autor por id
-  async getAuthorById(req, res){
+  async getAuthorById(req, res, id_project){
     try {
-      const entry = await AuthorProject.findByPk(req.params.id);
-      if (!entry) return res.status(404).json({ error: 'Registro não encontrado' });
-      res.status(200).json(entry);
+      const authors = await AuthorProject.findAll(
+        {
+          where:{
+            id_project : id_project
+          }
+        }
+      );
+      if (!entry) console.log({ error: 'Registro não encontrado' });
+      return authors
     } catch (error) {
-      res.status(500).json({ error: 'Erro ao buscar o registro' });
+      console.error({ error: 'Erro ao buscar o registro' });
     }
   }
 

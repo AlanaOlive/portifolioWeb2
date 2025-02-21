@@ -11,7 +11,7 @@ class ProjectClass {
         project_link,
         active
       });
-      res.status(201).json(newProject);
+      return newProject.id;
     } catch (error) {
       console.error('Erro ao criar projeto:', error);
       res.status(500).json({ error: error.message });
@@ -27,9 +27,9 @@ class ProjectClass {
           active : 1
         }
       }
-      );  // Busca os projetos do banco
-      res.locals.headerTitle = "Projetos da Comunidade";
-      res.render('home', { projetos });  // Renderiza a página home.ejs com os dados dos projetos
+      );  // Busca os projetos do banco      
+      res.locals.headerTitle = "Projetos da Comunidade";  
+      res.render('home', { projetos });
     } catch (error) {
       console.error('Erro ao buscar projetos:', error);
       res.status(500).send('Erro ao carregar projetos');

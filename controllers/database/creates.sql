@@ -51,3 +51,11 @@ CREATE TABLE users_knowledges(
     FOREIGN KEY (id_user) REFERENCES users(id),
     FOREIGN KEY (id_knowledge) REFERENCES knowledges(id)
 );
+
+CREATE TABLE keywords (
+	id INT NOT NULL AUTO_INCREMENT,
+	keyword VARCHAR(50),
+	active BOOL NULL DEFAULT NULL,
+	last_update DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+);

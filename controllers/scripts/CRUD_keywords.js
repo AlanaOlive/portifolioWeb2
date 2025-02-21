@@ -1,105 +1,72 @@
-const KeywordProject = require('../../model/keyword_projects_model');
+const Keyword = require('../../model/keywords_model');
+
 class KeywordsClass{
-    // CREATE - Cria um novo KeywordProject
-    async createKeywordProject(req, res){
+    async addKeyword(req,res) {
         try {
-            const { id_project, keyword } = req.body;
+            const { keyword, active, last_update } = req.body;
+            const newKeyword = await Keyword.create({ keyword, active, last_update });           
+          } catch (error) {
+            console.log({ error: 'Erro ao criar palavra-chave', details: error.message });
+          }
+    }
 
-            // Validação simples
-            if (!id_project || !keyword) {
-            return res.status(400).json({ error: 'id_project e keyword são obrigatórios' });
-            }
-
-            const newKeywordProject = await KeywordProject.create({
-            id_project,
-            keyword,
-            active: true,
-            last_update: new Date(),
-            });
-
-            res.status(201).json(newKeywordProject);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: error.message });
-        }
-    };
-
-    // READ - Recupera todos os KeywordProjects
-    async getAllKeywordProjects(req, res){
+    async getAllKeywords(req,res){
         try {
-            const keywordProjects = await KeywordProject.findAll(
+            const keywords = await Keyword.findAll(
                 {
                     where:{
-                        active: 1
+                        active:1
                     }
-                }
+                }                
+            );            
+            return keywords;
+          } catch (error) {
+            console.log({ error: 'Erro ao listar palavras-chave', details: error.message });
+          }
+    }
+
+    async getKeywordById(req,res){
+        try {
+            const keyword = await Keyword.findByPk(req.params.id);
+            if (!keyword) {
+              console.log({ error: 'Palavra-chave não encontrada' });
+            }
+            return keyword;
+          } catch (error) {
+            console.error({ error: 'Erro ao buscar palavra-chave', details: error.message });
+          }
+    }
+
+    async updateKeyword(req,res){
+        try {
+            const { keyword, active, last_update } = req.body;
+            const updatedKeyword = await Keyword.update(
+              { keyword, active, last_update },
+              { where: { id: req.params.id }, returning: true }
             );
-            return keywordProjects;
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: error.message });
-        }
-    };
-
-    // READ by ID - Recupera um KeywordProject pelo ID
-    async getKeywordProjectById(req, res){
-        const { id } = req.params;
-        try {
-            const keywordProject = await KeywordProject.findByPk(id);
-
-            if (!keywordProject) {
-            return res.status(404).json({ error: 'KeywordProject não encontrado' });
+            if (updatedKeyword[0] === 0) {
+              console.log({ error: 'Palavra-chave não encontrada' });
             }
+            console.log(updatedKeyword[1][0]);
+          } catch (error) {
+            console.log({ error: 'Erro ao atualizar palavra-chave', details: error.message });
+          }
+    }
 
-            res.status(200).json(keywordProject);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: error.message });
-        }
-    };
-
-    // UPDATE - Atualiza um KeywordProject
-    async updateKeywordProject(req, res){
-        const { id } = req.params;
-        const { id_project, keyword, active } = req.body;
+    async deleteKeyword(req,res){
         try {
-            const keywordProject = await KeywordProject.findByPk(id);
-
-            if (!keywordProject) {
-            return res.status(404).json({ error: 'KeywordProject não encontrado' });
+            const id_keyword = req.params.id;
+            const keyword = await Keyword.findByPk(id);
+            if (!deletedKeyword) {
+              console.log({ error: 'Palavra-chave não encontrada' });
             }
-
-            // Atualizando o projeto
-            keywordProject.id_project = id_project || keywordProject.id_project;
-            keywordProject.keyword = keyword || keywordProject.keyword;
-            keywordProject.active = active !== undefined ? active : keywordProject.active;
-            keywordProject.last_update = new Date();
-
-            await keywordProject.save();
-
-            res.status(200).json(keywordProject);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: error.message });
-        }
-    };
-
-    // DELETE - Deleta um KeywordProject
-    async deleteKeywordProject(req, res){
-        const id = req.params.id;
-        try {
-            const keywordProject = await KeywordProject.findByPk(id);
-            if (!keywordProject) {
-            return res.status(404).json({ error: 'KeywordProject não encontrado' });
-            }
-        keywordProject.active = 0;
-        keywordProject.Date = new Date();
-
-            res.status(204).send();  
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: error.message });
-        }
-    };
+            keyword.active = 0;
+            keyword.last_update = new Date();
+            alert({ message: 'Palavra-chave excluída com sucesso' });
+          } catch (error) {
+            console.error({ error: 'Erro ao excluir palavra-chave', details: error.message });
+          }
+    }
 }
+
 module.exports = KeywordsClass;

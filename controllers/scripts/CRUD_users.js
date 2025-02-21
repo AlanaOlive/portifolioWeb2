@@ -36,11 +36,10 @@ class UserClass{
             if (user) {
               return user;
             } else {
-              return res.status(404).json({ message: 'Usuário não encontrado.' });
+              console.log({ message: 'Usuário não encontrado.' });
             }
           } catch (error) {
-            console.error(error);
-            return res.status(500).json({ message: 'Erro ao obter o usuário.' });
+            console.error(error);            
           }
     }
     async updateUser(req,res){
