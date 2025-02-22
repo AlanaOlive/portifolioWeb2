@@ -4,7 +4,7 @@ class KnowledgeClass{
     //add conhecimento
     async addKnowledge(req,res){
         try {
-            const { description } = req.body;
+            const { description, active } = req.body;
             const newKnowledge = await Knowledge.create({
               description,
               active,
@@ -26,7 +26,7 @@ class KnowledgeClass{
                 }
               }
             );
-            return res.status(200).json(knowledges);
+            return knowledges;
           } catch (error) {
             console.error(error);
             return res.status(500).json({ message: 'Erro ao obter conhecimentos.' });
@@ -80,6 +80,7 @@ class KnowledgeClass{
             if (knowledge) {
               knowledge.active = 0;
               knowledge.last_update = new Date();
+              knowledge.save()
               return res.status(200).json({ message: 'Conhecimento deletado com sucesso.' });
             } else {
               return res.status(404).json({ message: 'Conhecimento não encontrado.' });

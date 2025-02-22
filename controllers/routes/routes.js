@@ -21,6 +21,11 @@ const keywords_project_object = new KeywordsProject();
 //Palavras chave padrão
 const Keywords = require('../scripts/CRUD_keywords');
 const keywords_object = new Keywords();
+
+//Conhecimentos
+const Knowledges = require('../scripts/CRUD_Knowledges');
+const Knowledges_object = new Knowledges();
+
 //////////////////////////////////////////////////////////////////
 
 //Rota para homepage
@@ -100,20 +105,30 @@ router.route('/projetos/:id')
 
 
 //Rota conhecimentos
-router.route('/conhecimentos')
-    .get((req, res) => {
-        res.render('conhecimentos'); 
+router.route('/admin/conhecimentos/:id?')
+    .get(async(req, res) => {
+        const conhecimentos = await Knowledges_object.getAllKnowledges(req,res);
+        res.render('conhecimentos', { conhecimentos }); 
+    })
+    .post(async (req, res) => {
+        await Knowledges_object.addKnowledge(req,res);              
+    })
+    .put(async (req, res) => {
+        await Knowledges_object.updateKnowledge(req,res);
+    })
+    .delete(async (req, res) => {
+        await Knowledges_object.deleteKnowledge(req, res); 
     });
 
 
 //Rota usuários
-router.route('/usuarios') 
+router.route('/admin/usuarios') 
     .get(async (req, res) => {
         const users = await user_object.getAllUsers(req, res);
         res.render('usuarios', { users } );
     });
 
-router.route('/usuario/:id') 
+router.route('/admin/usuario/:id') 
     .get(async (req, res) => {
         const user = await user_object.getUserById(req, res);
         res.render('editUsuario', { user } );
@@ -125,7 +140,7 @@ router.route('/usuario/:id')
         await user_object.deleteUser(req, res); 
     });
 
-router.route('/usuarioCadastrar') 
+router.route('/admin/usuarioCadastrar') 
     .get(async (req, res) => {
         const user = []; 
         res.render('editUsuario', { user });

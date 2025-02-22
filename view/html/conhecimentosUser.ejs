@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Softwarehouse - Conhecimentos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            max-width: 600px;
+            /* Reduzido de 800px para 600px */
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-buttons .btn {
+            width: 48%;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-check-label {
+            margin-left: 10px;
+        }
+
+        .knowledge-level-container {
+            display: none;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            width: 40%;
+            /* O slider ocupa 40% da largura do container */
+            justify-content: flex-end;
+        }
+
+        .knowledge-level-container input {
+            width: 70%;
+            /* O slider ocupa 70% do espaço disponível */
+            margin-right: 10px;
+        }
+
+        .knowledge-level-container .level-output {
+            font-weight: bold;
+            color: #ff5733;
+            /* Cor mais visível */
+            font-size: 1.1rem;
+        }
+
+        .form-check {
+            margin-bottom: 1rem;
+        }
+
+        .d-flex {
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="">Conhecimentos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <%= user_name %>                          
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="/public/projetos">Projetos</a></li>
+                            <% if(!user_external) { %>
+                            <li><a class="dropdown-item" href="/cadastroProjetos">Cadastrar Projeto</a></li>
+                            <li><a class="dropdown-item" href="/meusProjetos">Meus Projetos</a></li>
+                            <% if(user_admin) { %>
+                            <li><a class="dropdown-item" href="/admin/conhecimentos">Conhecimentos</a></li>
+                            <li><a class="dropdown-item" href= "/admin/usuarios">Usuários</a></li>
+                            <% } %>
+                            <li><hr class="dropdown-divider"></li>
+                            <% } %>
+                            <li><a class="dropdown-item" href="/logout">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2 class="text-center mb-4">Cadastrar Conhecimentos</h2>
+        <form>
+            <!-- Conhecimentos pré-cadastrados -->
+            <div class="mb-3">
+                <label class="form-label">Selecione seus conhecimentos</label>
+
+                <!-- Inovação -->
+                <div class="form-check d-flex">
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="Inovação" id="knowledge1">
+                        <label class="form-check-label" for="knowledge1">Inovação</label>
+                    </div>
+                    <div class="knowledge-level-container" id="level1">
+                        <input type="range" class="form-range" id="level1Range" min="0" max="10" value="0">
+                        <span class="level-output" id="level1Output">0</span>
+                    </div>
+                </div>
+
+                <!-- Tecnologia -->
+                <div class="form-check d-flex">
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="Tecnologia" id="knowledge2">
+                        <label class="form-check-label" for="knowledge2">Tecnologia</label>
+                    </div>
+                    <div class="knowledge-level-container" id="level2">
+                        <input type="range" class="form-range" id="level2Range" min="0" max="10" value="0">
+                        <span class="level-output" id="level2Output">0</span>
+                    </div>
+                </div>
+
+                <!-- Software -->
+                <div class="form-check d-flex">
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="Software" id="knowledge3">
+                        <label class="form-check-label" for="knowledge3">Software</label>
+                    </div>
+                    <div class="knowledge-level-container" id="level3">
+                        <input type="range" class="form-range" id="level3Range" min="0" max="10" value="0">
+                        <span class="level-output" id="level3Output">0</span>
+                    </div>
+                </div>
+
+                <!-- Design -->
+                <div class="form-check d-flex">
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="Design" id="knowledge4">
+                        <label class="form-check-label" for="knowledge4">Design</label>
+                    </div>
+                    <div class="knowledge-level-container" id="level4">
+                        <input type="range" class="form-range" id="level4Range" min="0" max="10" value="0">
+                        <span class="level-output" id="level4Output">0</span>
+                    </div>
+                </div>
+
+                <!-- Pesquisa -->
+                <div class="form-check d-flex">
+                    <div>
+                        <input class="form-check-input" type="checkbox" value="Pesquisa" id="knowledge5">
+                        <label class="form-check-label" for="knowledge5">Pesquisa</label>
+                    </div>
+                    <div class="knowledge-level-container" id="level5">
+                        <input type="range" class="form-range" id="level5Range" min="0" max="10" value="0">
+                        <span class="level-output" id="level5Output">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="form-buttons">
+                <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Funcionalidade para mostrar o range e atualizar o nível de conhecimento
+        document.querySelectorAll('.form-check-input').forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                const levelContainer = document.getElementById('level' + this.id.charAt(this.id.length - 1));
+                if (this.checked) {
+                    levelContainer.style.display = 'flex';
+                } else {
+                    levelContainer.style.display = 'none';
+                }
+            });
+        });
+
+        // Atualizar o valor do range ao mover o slider
+        document.querySelectorAll('.form-range').forEach(range => {
+            range.addEventListener('input', function () {
+                const output = document.getElementById(this.id + 'Output');
+                output.textContent = this.value;
+            });
+        });
+    </script>
+</body>
+
+</html>

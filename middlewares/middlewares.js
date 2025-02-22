@@ -12,7 +12,7 @@ module.exports = {
             res.locals.user_admin = req.session.user_admin;  
             res.locals.user_external = req.session.user_external;
             activeSession = true;
-            if (!req.session.user_admin && (req.url.startsWith('/usuario')) ) {
+            if (!req.session.user_admin && (req.url.startsWith('/admin')) ) {
                 res.redirect('/');
             } else {
                 next();
@@ -26,7 +26,7 @@ module.exports = {
             res.locals.user_external = true;
             if ((req.url == '/login')) next();
             else if ((req.url.startsWith('/public/')) && (req.method == 'GET')) next(); //Paginas sem necessidade de login
-            else if ((req.url.startsWith('/projetos/')) && (req.method == 'GET')) next(); //visualizar projetos sem login
+            //else if ((req.url.startsWith('/projetos/')) && (req.method == 'GET')) next(); //visualizar projetos sem login
             else res.redirect('/login');
         }
     }

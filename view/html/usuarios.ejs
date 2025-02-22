@@ -76,9 +76,9 @@
                             <% if(!user_external) { %>
                             <li><a class="dropdown-item" href="/cadastroProjetos">Cadastrar Projeto</a></li>
                             <li><a class="dropdown-item" href="/meusProjetos">Meus Projetos</a></li>
-                            <li><a class="dropdown-item" href="/conhecimentos">Conhecimentos</a></li>
                             <% if(user_admin) { %>
-                            <!-- <li><a class="dropdown-item" href= "/usuarios">Usuários</a></li> -->
+                            <li><a class="dropdown-item" href="/admin/conhecimentos">Conhecimentos</a></li>
+                            <!-- <li><a class="dropdown-item" href= "/admin/usuarios">Usuários</a></li> -->
                             <% } %>
                             <li><hr class="dropdown-divider"></li>
                             <% } %>
@@ -101,13 +101,13 @@
             <% users.forEach(user => { %>
                 <div class="user-row">
                     <div class="container user-label">
-                        <a class="user-property" href="/usuario/<%= user.id %>" >
+                        <a class="user-property" href="/admin/usuario/<%= user.id %>" >
                             <div class="user-name"><%= user.id %> - <%= user.user_name %></div>
                         </a>
                     </div>
                     <div class="container d-flex justify-content-end">
                         <div class="user-buttons">
-                            <button type="button" class="btn btn-warning" onclick="window.location.href='/usuario/<%= user.id %>'">Editar</button>
+                            <button type="button" class="btn btn-warning" onclick="window.location.href='/admin/usuario/<%= user.id %>'">Editar</button>
                             <!-- <form action="/usuario/<%= user.id %>?_method=DELETE" method="POST" class="form-button"> -->
                                 <button id="btnDelete" type="submit" class="btn btn-danger" onclick="deleteUser(<%= user.id %>)">Excluir</button>
                             <!-- </form>  -->
@@ -117,7 +117,7 @@
             <% }) %>
         </div>
         <% } else { %> 
-            <div class="project-grid-empty">
+            <div class="user-grid-empty">
                 <p>Não há usuários para exibir</p>
             </div> 
         <% } %> 
@@ -126,7 +126,7 @@
     <script>
         function deleteUser(id) {
             if (id > 0 && confirm('Tem certeza que deseja deletar este usuário?')) {     
-                fetch('/usuario/'+id, {
+                fetch('/admin/usuario/'+id, {
                     method: 'DELETE',
                 })
                 .then(response => response.json())
