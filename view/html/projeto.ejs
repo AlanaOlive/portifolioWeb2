@@ -51,7 +51,7 @@
                  
                 <div class="form-buttons">
                     <button type="button" class="btn btn-secondary" onclick="window.history.back();">Voltar</button>
-                    <% if (user_id === 1) { %> <!-- implementar retorno das ids de authors vinculadas -->
+                    <% if (isAuthorProject) { %>
                     <button type="button"  class="btn btn-primary" onclick="window.location.href='/editProject/<%=project.id%>'">Editar</button>                   
                     <form action="/projetos/<%= project.id %>?_method=DELETE" method="POST">
                         <button type="submit" id="button-delete" class="btn btn-secondary" onclick="deleteProject(event)">Deletar</button> 

@@ -65,7 +65,7 @@ class AuthorProjectClass{
   }
 
   //get de autor por id
-  async getAuthorById(req, res, id_project){
+  async getAuthorByIdProject(req, res, id_project){
     try {
       const authors = await AuthorProject.findAll(
         {
@@ -74,7 +74,7 @@ class AuthorProjectClass{
           }
         }
       );
-      if (!entry) console.log({ error: 'Registro não encontrado' });
+      if (!authors) console.log({ error: 'Registro não encontrado' });
       return authors
     } catch (error) {
       console.error({ error: 'Erro ao buscar o registro' });
@@ -108,6 +108,21 @@ class AuthorProjectClass{
     }
   }
 
+  async IsAuthor(id_project, id_user) {
+    try {
+      const authors = await AuthorProject.findAll(
+        {
+          where:{
+            id_project : id_project,
+            id_author : id_user
+          }
+        }
+      );
+      return (authors.length > 0);
+    } catch (error) {
+      console.error({ error: 'Erro ao buscar o registro' });
+    }    
+  }
 }
 
 module.exports = AuthorProjectClass;

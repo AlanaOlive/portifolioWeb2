@@ -85,22 +85,41 @@ router.route('/meusProjetos')
 
 router.route('/editProject/:id')
     .get(async (req,res) =>{
-        const project = await project_object.getProjectById(req,res);
-        const keywords = await keywords_project_object.getAllKeywordProjects(req,res);
-        const authors = await user_object.getAllUsers(req,res);
-        res.render('editProject', {project, keywords, authors});
+        const id_project = req.params.id; 
+        const IsAuthor = await authors_project_object.IsAuthor(id_project, req.session.user_id);
+        if (IsAuthor) {
+            const project = await project_object.getProjectById(req,res);
+            const keywords = await keywords_project_object.getAllKeywordProjects(req,res);
+            const authors = await user_object.getAllUsers(req,res);
+            res.render('editProject', {project, keywords, authors});  
+        } else {
+            res.status(403).send('Usuário sem permissão para editar esse projeto');
+        };
     })
-    .put((req, res)=>{
-        project_object.updateProject(req,res);
+    .put(async (req, res)=>{
+        const id_project = req.params.id; 
+        const IsAuthor = await authors_project_object.IsAuthor(id_project, req.session.user_id);
+        if (IsAuthor) {
+            await project_object.updateProject(req,res);    
+        } else {
+            res.status(403).send('Usuário sem permissão para editar esse projeto');
+        }
     });
 
 router.route('/projetos/:id')
     .get(async (req, res) => {
         const project = await project_object.getProjectById(req,res);
+        res.locals.isAuthorProject = await authors_project_object.IsAuthor(project.id, req.session.user_id);
         res.render('projeto', {project});
     })
-    .delete((req, res) =>{
-        project_object.deleteProject(req, res);
+    .delete(async (req, res) =>{
+        const id_project = req.params.id; 
+        const IsAuthor = await authors_project_object.IsAuthor(id_project, req.session.user_id);
+        if (IsAuthor) {
+            await project_object.deleteProject(req, res);  
+        } else {
+            res.status(403).send('Usuário sem permissão para editar esse projeto');    
+        }
     });
 
 
