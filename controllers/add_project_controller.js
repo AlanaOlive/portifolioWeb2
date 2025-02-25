@@ -5,11 +5,11 @@ document.getElementById('projectForm').addEventListener('submit', function (even
     const projectSummary = document.getElementById('projectSummary').value;
     const projectLink = document.getElementById('projectLink').value;
 
-    const keywordCheckboxes = document.querySelectorAll('#dropdownMenuButton + .dropdown-menu input:checked');
-    const keywords = Array.from(keywordCheckboxes).map(checkbox => checkbox.id);
+    const keywordCheckboxes = document.querySelectorAll('.keywordCheck:checked');
+    const keywords = Array.from(keywordCheckboxes).map(checkbox => checkbox.value);
 
-    const authorCheckboxes = document.querySelectorAll('#dropdownAuthorsButton + .dropdown-menu input:checked');
-    const authors = Array.from(authorCheckboxes).map(checkbox => checkbox.id);
+    const authorCheckboxes = document.querySelectorAll('.authorsCheck:checked');
+    const authors = Array.from(authorCheckboxes).map(checkbox => checkbox.value);
 
     const projectData = {
         project_name: projectName,
@@ -33,6 +33,7 @@ document.getElementById('projectForm').addEventListener('submit', function (even
         .then(data => {
             console.log('Projeto salvo com sucesso:', data);
             alert('Projeto salvo com sucesso!');
+            window.location.href = '/';
         })
         .catch(error => {
             console.error('Erro ao cadastrar projeto:', error);

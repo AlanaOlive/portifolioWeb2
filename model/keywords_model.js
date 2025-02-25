@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const db = require('../confg/db_connection'); 
+const KeywordProject = require('./keyword_projects_model'); 
 
 const Keyword = db.define('Keyword', {
   id: {
@@ -27,10 +28,20 @@ const Keyword = db.define('Keyword', {
   timestamps: false,
 });
 
+Keyword.hasMany(KeywordProject, {
+  foreignKey: 'id_keyword',  
+  sourceKey: 'id',
+});
+
+KeywordProject.belongsTo(Keyword, {
+foreignKey: 'id_keyword', 
+targetKey: 'id',
+});
+
 module.exports = Keyword;
 db.sync()
   .then(() => {
-    console.log('Modelo sincronizado com o banco de dados!');
+    console.log('Modelo Keyword sincronizado com o banco de dados!');
   })
   .catch(err => {
     console.error('Erro ao sincronizar o modelo:', err);

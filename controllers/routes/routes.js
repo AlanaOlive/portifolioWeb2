@@ -29,17 +29,14 @@ const Knowledges_object = new Knowledges();
 //////////////////////////////////////////////////////////////////
 
 //Rota para homepage
-router.get('/', (req, res) => {
-    project_object.getAllProjects(req, res);
-    // const keywords = keywords_project_object.getKeywordProjectById(req, res, projetos.id);
-    // const id_authors = authors_project_object.getAuthorById(req,res, projetos.id);
-    // const authors = user_object.getUserById(id_authors)
-    // res.locals.headerTitle = "Software House";
-    // res.render('home', { projetos/*, keywords, authors*/ });
+router.get('/', async (req, res) => {
+    res.redirect('/public/projetos');
 });
 
-router.get('/public/projetos', (req, res) => {
-    project_object.getAllProjects(req, res);      
+router.get('/public/projetos', async (req, res) => {
+    const projetos = await project_object.getAllProjects(req, res);   
+    res.locals.headerTitle = "Projetos da Comunidade";  
+    res.render('home', { projetos });
 });
 
 
@@ -66,10 +63,12 @@ router.route('/cadastroProjetos')
         res.render('cadastroProjetos', { keywords, authors });        
     })
     .post(async(req,res)=>{
-        const id_project = await project_object.addProject(req, res); 
-        await authors_project_object.addAuthor(req,res, id_project);
-        await keywords_project_object.createKeywordProject(req,res,id_project);
-        res.redirect('/');
+        const project = await project_object.addProject(req, res); 
+        const authorNames = req.body.authors_project;
+        const keywordNames = req.body.keywords_projects;
+        await authors_project_object.updateProjectAuthors(project.id, authorNames);   
+        await keywords_project_object.updateProjectKeyword(project.id, keywordNames); 
+        res.status(200).json(project);
     });
     
 router.route('/meusProjetos')
@@ -89,7 +88,9 @@ router.route('/editProject/:id')
         const IsAuthor = await authors_project_object.IsAuthor(id_project, req.session.user_id);
         if (IsAuthor) {
             const project = await project_object.getProjectById(req,res);
-            const keywords = await keywords_project_object.getAllKeywordProjects(req,res);
+            project.authors_project = await authors_project_object.getAuthorProjectById(id_project);
+            project.keywords_projects = await keywords_project_object.getKeywordProjectById(id_project); 
+            const keywords = await keywords_object.getAllKeywords(req,res);
             const authors = await user_object.getAllUsers(req,res);
             res.render('editProject', {project, keywords, authors});  
         } else {
@@ -100,18 +101,15 @@ router.route('/editProject/:id')
         const id_project = req.params.id; 
         const IsAuthor = await authors_project_object.IsAuthor(id_project, req.session.user_id);
         if (IsAuthor) {
-            await project_object.updateProject(req,res);    
+            await project_object.updateProject(req,res);  
+            const authorNames = req.body.authors_project;
+            const keywordNames = req.body.keywords_projects;
+            await authors_project_object.updateProjectAuthors(id_project, authorNames);   
+            await keywords_project_object.updateProjectKeyword(id_project, keywordNames);  
         } else {
             res.status(403).send('Usuário sem permissão para editar esse projeto');
         }
-    });
-
-router.route('/projetos/:id')
-    .get(async (req, res) => {
-        const project = await project_object.getProjectById(req,res);
-        res.locals.isAuthorProject = await authors_project_object.IsAuthor(project.id, req.session.user_id);
-        res.render('projeto', {project});
-    })
+    })    
     .delete(async (req, res) =>{
         const id_project = req.params.id; 
         const IsAuthor = await authors_project_object.IsAuthor(id_project, req.session.user_id);
@@ -122,6 +120,12 @@ router.route('/projetos/:id')
         }
     });
 
+router.route('/public/projetos/:id')
+    .get(async (req, res) => {
+        const project = await project_object.getProjectById(req,res);
+        res.locals.isAuthorProject = await authors_project_object.IsAuthor(project.id, req.session.user_id);
+        res.render('projeto', {project});
+    });
 
 //Rota conhecimentos
 router.route('/admin/conhecimentos/:id?')

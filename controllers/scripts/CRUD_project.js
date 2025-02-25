@@ -1,4 +1,8 @@
 const Project = require('../../model/projects_model'); 
+const AuthorsProject = require('../scripts/CRUD_authors_projects');
+const authors_project_object = new AuthorsProject();
+const KeywordsProject = require('../scripts/CRUD_keywords_projects');
+const keywords_project_object = new KeywordsProject();
 
 class ProjectClass {
   // Cria novo projeto
@@ -11,7 +15,7 @@ class ProjectClass {
         project_link,
         active
       });
-      return newProject.id;
+      return newProject;
     } catch (error) {
       console.error('Erro ao criar projeto:', error);
       res.status(500).json({ error: error.message });
@@ -26,10 +30,12 @@ class ProjectClass {
         where:{
           active : 1
         }
-      }
-      );  // Busca os projetos do banco      
-      res.locals.headerTitle = "Projetos da Comunidade";  
-      res.render('home', { projetos });
+      });  // Busca os projetos do banco  
+      for (let i = 0; i < projetos.length; i++) {  
+        projetos[i].authors_project = await authors_project_object.getNamesAuthorProjectById(projetos[i].id);
+        projetos[i].keywords_projects = await keywords_project_object.getNamesKeywordProjectById(projetos[i].id);  
+      };
+      return projetos;
     } catch (error) {
       console.error('Erro ao buscar projetos:', error);
       res.status(500).send('Erro ao carregar projetos');
@@ -46,6 +52,10 @@ class ProjectClass {
           active : 1
         }
       }); 
+      for (let i = 0; i < projetos.length; i++) {  
+        projetos[i].authors_project = await authors_project_object.getNamesAuthorProjectById(projetos[i].id);
+        projetos[i].keywords_projects = await keywords_project_object.getNamesKeywordProjectById(projetos[i].id);  
+      };
       return projetos;
     } catch (error) {
       console.error('Erro ao buscar projetos:', error);

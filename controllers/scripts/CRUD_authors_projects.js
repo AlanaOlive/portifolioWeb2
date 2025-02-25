@@ -1,4 +1,7 @@
+
+const db = require('../../confg/db_connection'); 
 const AuthorProject = require('../../model/authors_projects_model');
+const User = require('../../model/user_model');
 
 class AuthorProjectClass{
   // Criar um novo registro
@@ -64,13 +67,36 @@ class AuthorProjectClass{
     }
   }
 
-  //get de autor por id
-  async getAuthorByIdProject(req, res, id_project){
+  async getNamesAuthorProjectById(id_project){
     try {
       const authors = await AuthorProject.findAll(
         {
           where:{
-            id_project : id_project
+            id_project : id_project,
+            active: true
+          },
+          include: [{
+            model: User,
+            attributes: ['user_name'],
+            where: { id: db.col('AuthorProject.id_author') }
+          }]
+        }
+      );
+      if (!authors) console.log({ error: 'Registro não encontrado' });
+      return authors.map(author => author.User.user_name);
+    } catch (error) {
+      console.error({ error: 'Erro ao buscar o registro' });
+    }
+  }
+
+  //get de autor por id
+  async getAuthorProjectById(id_project){
+    try {
+      const authors = await AuthorProject.findAll(
+        {
+          where:{
+            id_project : id_project,
+            active: true
           }
         }
       );
@@ -93,8 +119,56 @@ class AuthorProjectClass{
     } catch (error) {
       res.status(500).json({ error: 'Erro ao atualizar o registro' });
     }
-  }
+  };
 
+  async updateProjectAuthors(projectId, authorNames) {
+    const authors = await AuthorProject.findAll(
+      {
+        where:{
+          id_project : projectId
+        },
+        include: [{
+          model: User,
+          attributes: ['user_name'],
+          where: { id: db.col('AuthorProject.id_author') }
+        }]
+      }
+    );
+    
+    // Desativa autores removidos
+    authors.forEach(author => {
+      if (author.User && author.User.user_name && !authorNames.includes(author.User.user_name)) {
+        author.active = false;
+        author.save();
+      }
+    });
+
+    // Re-ativa ou inclui novos autores
+    for (let iNames = 0; iNames < authorNames.length; iNames++) {
+      let add = true;
+      for (let iAuthors = 0; iAuthors < authors.length; iAuthors++) {  
+        if (authorNames[iNames] == authors[iAuthors].User.user_name) {
+          add = false;
+          if (!authors[iAuthors].active) {
+            authors[iAuthors].active = true;
+            authors[iAuthors].save();           
+          }  
+        }
+      }
+      if (add) {
+        let user = await User.findOne({ where: { user_name: authorNames[iNames] } });
+        if (user) {
+          await AuthorProject.create({
+              id_project: projectId,
+              id_author: user.id,
+              active: true,
+              last_update: new Date()
+          })
+        }       
+      }
+    }
+  }
+  
   //deleta autor
   async deleteAuthor(req, res){
     try {
@@ -110,15 +184,19 @@ class AuthorProjectClass{
 
   async IsAuthor(id_project, id_user) {
     try {
-      const authors = await AuthorProject.findAll(
-        {
-          where:{
-            id_project : id_project,
-            id_author : id_user
+      if (id_project && id_user) {
+        const authors = await AuthorProject.findAll(
+          {
+            where:{
+              id_project : id_project,
+              id_author : id_user
+            }
           }
-        }
-      );
-      return (authors.length > 0);
+        );
+        return (authors.length > 0);
+      } else {
+        return false;
+      }
     } catch (error) {
       console.error({ error: 'Erro ao buscar o registro' });
     }    

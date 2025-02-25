@@ -43,10 +43,22 @@
         <% if (projetos && projetos.length > 0) { %>
         <div class="project-grid">
             <% projetos.forEach(projeto => { %>
-                <a href="/projetos/<%= projeto.id %>" class="project-label">
+                <a href="/public/projetos/<%= projeto.id %>" class="project-label">
                     <div class="project-title"><%= projeto.project_name %></div>
-                    <div class="project-author">Autor: <%= projeto.author || 'Autor desconhecido' %></div>
-                    <div class="project-keywords">Palavras-chave: <%= projeto.keywords || 'N/A' %></div>
+                    <div class="project-author">
+                        <% if (projeto.authors_project && projeto.authors_project.length > 0) { %>
+                            Autor: <%= projeto.authors_project %>
+                        <% } else { %>
+                            Autor: <%= 'Autor desconhecido' %>
+                        <% } %>
+                    </div>
+                    <div class="project-keywords"> 
+                        <% if (projeto.keywords_projects && projeto.keywords_projects.length > 0) { %>
+                            Palavras-chave: <%= projeto.keywords_projects %>
+                        <% } else { %>
+                            Palavras-chave: <%= 'N/A' %>
+                        <% } %>
+                    </div>
                     <div class="project-description">Descrição: <%= projeto.project_resume %></div>
                 </a>
             <% }) %>

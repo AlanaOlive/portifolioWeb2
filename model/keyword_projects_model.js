@@ -35,7 +35,7 @@ module.exports = KeywordProject;
 
 db.sync()
   .then(() => {
-    console.log('Modelo sincronizado com o banco de dados!');
+    console.log('Modelo KeywordProject sincronizado com o banco de dados!');
   })
   .catch(err => {
     console.error('Erro ao sincronizar o modelo:', err);

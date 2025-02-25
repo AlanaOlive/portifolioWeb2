@@ -1,4 +1,7 @@
+const db = require('../../confg/db_connection'); 
 const KeywordProject = require('../../model/keyword_projects_model');
+const Keywords = require('../../model/keywords_model');
+
 class KeywordsProjectClass{
     // CREATE - Cria um novo KeywordProject
     async createKeywordProject(req, res, id_project){
@@ -36,17 +39,42 @@ class KeywordsProjectClass{
         }
     };
 
-    // READ by ID - Recupera um KeywordProject pelo ID
-    async getKeywordProjectById(req, res, id_project){
+    async getNamesKeywordProjectById(id_project){
         
         try {
             const keywordsProject = await KeywordProject.findAll({
                 where:{
-                    id_project : id_project
+                    id_project : id_project,
+                    active: true
+                },
+                include: [{
+                  model: Keywords,
+                  attributes: ['keyword'],
+                  where: { id: db.col('KeywordProject.id_keyword') }
+                }]
+            });
+
+            if (!keywordsProject) {
+                console.log({ error: 'KeywordProject não encontrado' });
+            }
+            return keywordsProject.map(keywordProject => keywordProject.Keyword.keyword);;
+        } catch (error) {
+            console.error(error);            
+        }
+    };
+
+    // READ by ID - Recupera um KeywordProject pelo ID
+    async getKeywordProjectById(id_project){
+        
+        try {
+            const keywordsProject = await KeywordProject.findAll({
+                where:{
+                    id_project : id_project,
+                    active: true
                 }
             });
 
-            if (!keywordProject) {
+            if (!keywordsProject) {
             console.log({ error: 'KeywordProject não encontrado' });
             }
             return keywordsProject;
@@ -77,6 +105,54 @@ class KeywordsProjectClass{
             console.error(error);
         }
     };
+
+    async updateProjectKeyword(projectId, keywordNames) {
+        const keywordsProject = await KeywordProject.findAll(
+            {
+              where:{
+                id_project : projectId
+              },
+              include: [{
+                model: Keywords,
+                attributes: ['keyword'],
+                where: { id: db.col('KeywordProject.id_keyword') }
+              }]
+            }
+          );
+
+        // Desativa keywords removidas
+        keywordsProject.forEach(keywordProject => {
+            if (keywordProject.Keyword && keywordProject.Keyword.keyword && !keywordNames.includes(keywordProject.Keyword.keyword)) {
+            keywordProject.active = false;
+            keywordProject.save();
+            }
+        });
+
+        // Re-ativa ou inclui novos autores
+        for (let iNames = 0; iNames < keywordNames.length; iNames++) {
+            let add = true;
+            for (let ikeywords = 0; ikeywords < keywordsProject.length; ikeywords++) {  
+            if (keywordNames[iNames] == keywordsProject[ikeywords].Keyword.keyword) {
+                add = false;
+                if (!keywordsProject[ikeywords].active) {
+                    keywordsProject[ikeywords].active = true;
+                    keywordsProject[ikeywords].save();           
+                }  
+            }
+            }
+            if (add) {
+                let Keyword = await Keywords.findOne({ where: { Keyword: keywordNames[iNames] } });
+                if (Keyword) {
+                    await KeywordProject.create({
+                        id_project: projectId,
+                        id_keyword: Keyword.id,
+                        active: true,
+                        last_update: new Date()
+                    })
+                }       
+            }
+        }
+      }
 
     // DELETE - Deleta um KeywordProject
     async deleteKeywordProject(req, res){

@@ -129,12 +129,12 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Selecione as palavras-chave
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <ul id="keywordList" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <% if (keywords && keywords.length > 0) { %>  <!-- Verifica se keywords não está vazio -->
                           <% keywords.forEach((keyword) => { %>
                             <li>
                               <label class="dropdown-item">
-                                <input type="checkbox" name="keywords" id="<%= keyword.id %>" value="<%= keyword.keyword %>"> <%= keyword.keyword %>
+                                <input class="keywordCheck" type="checkbox" name="keywords" id="<%= keyword.id %>" value="<%= keyword.keyword %>"> <%= keyword.keyword %>
                               </label>
                             </li>
                           <% }) %>
@@ -154,11 +154,11 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Selecione os autores
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownAuthorsButton">
+                    <ul id="authorsList" class="dropdown-menu" aria-labelledby="dropdownAuthorsButton">
                         <% authors.forEach((author) => { %>
                           <li>
                             <label class="dropdown-item">
-                              <input type="checkbox" id="<%= author.id %>" value="<%= author.user_name %>"> <%= author.user_name %>
+                              <input class="authorsCheck" type="checkbox" id="<%= author.id %>" value="<%= author.user_name %>"> <%= author.user_name %>
                             </label>
                           </li>
                         <% }) %>

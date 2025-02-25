@@ -39,7 +39,7 @@ module.exports = Project;
 
 db.sync()
   .then(() => {
-    console.log('Modelo sincronizado com o banco de dados!');
+    console.log('Modelo Project sincronizado com o banco de dados!');
   })
   .catch(err => {
     console.error('Erro ao sincronizar o modelo:', err);
