@@ -10,6 +10,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-4">
         <div class="container-fluid">
+            <a class="navbar-brand" href="/public/projetos">Softwarehouse</a>
+            <a class="navbar-brand" href=""> | </a>
             <a class="navbar-brand" href=""><%= headerTitle %></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -26,6 +28,7 @@
                             <li><a class="dropdown-item" href="/cadastroProjetos">Cadastrar Projeto</a></li>
                             <li><a class="dropdown-item" href="/meusProjetos">Meus Projetos</a></li>
                             <% if(user_admin) { %>
+                            <li><a class="dropdown-item" href="/admin/palavraschave">Palavras-Chave</a></li>
                             <li><a class="dropdown-item" href="/admin/conhecimentos">Conhecimentos</a></li>
                             <li><a class="dropdown-item" href= "/admin/usuarios">Usuários</a></li>
                             <% } %>

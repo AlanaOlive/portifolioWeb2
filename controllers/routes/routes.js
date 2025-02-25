@@ -30,7 +30,9 @@ const Knowledges_object = new Knowledges();
 
 //Rota para homepage
 router.get('/', async (req, res) => {
-    res.redirect('/public/projetos');
+    const projetos = await project_object.getAllProjects(req, res);   
+    res.locals.headerTitle = "Projetos da Comunidade";  
+    res.render('home', { projetos });
 });
 
 router.get('/public/projetos', async (req, res) => {
@@ -141,6 +143,23 @@ router.route('/admin/conhecimentos/:id?')
     })
     .delete(async (req, res) => {
         await Knowledges_object.deleteKnowledge(req, res); 
+    });
+
+
+//Rota palavras-chave
+router.route('/admin/palavraschave/:id?')
+    .get(async(req, res) => {
+        const palavrasChave = await keywords_object.getAllKeywords(req,res);
+        res.render('palavrasChave', { palavrasChave }); 
+    })
+    .post(async (req, res) => {
+        await keywords_object.addKeyword(req,res);              
+    })
+    .put(async (req, res) => {
+        await keywords_object.updateKeyword(req,res);
+    })
+    .delete(async (req, res) => {
+        await keywords_object.deleteKeyword(req, res); 
     });
 
 
