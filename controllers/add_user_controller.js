@@ -24,7 +24,7 @@ document.getElementById('userForm').addEventListener('submit', function (event) 
     .then(data => {
         console.log('Usuário salvo com sucesso:', data);
         alert('Usuário salvo com sucesso!');
-        window.location.href = '/usuarios'
+        window.location.href = '/admin/usuarios'
     })
     .catch(error => {
         console.error('Erro ao cadastrar usuário:', error);
